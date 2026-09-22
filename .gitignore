@@ -1,0 +1,5 @@
+deploy/
+backend/config/database.php
+.env
+.env.*
+.DS_Store
