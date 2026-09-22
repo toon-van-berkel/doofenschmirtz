@@ -1,0 +1,69 @@
+<?php
+
+$username;
+$points;
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Doofenshmirtz</title>
+</head>
+
+<body>
+
+    <nav>
+        <div>
+            <h1>Welkom, <?= $username ?? ''?></h1>
+        </div>
+
+        <div>
+            <!-- Profile Icon or hamburger menu here -->
+        </div>
+    </nav>
+
+    <main>
+        <header class="my-currency">
+            <h2>
+                You have <span id="points"> <?= $points ?? 0 ?></span> points.
+            </h2>
+
+        </header>
+
+        <section class="main-card"> 
+
+
+        </section>
+
+        <section class="quest-card">
+
+
+        </section>
+
+
+    </main>
+
+    <footer>
+        <div id="home">
+
+        </div>
+
+        <div id="my-quests">
+            
+        </div>
+
+        <div id="points">
+            
+        </div>
+
+        <div id="profile">
+            
+        </div>
+    </footer>
+
+</body>
