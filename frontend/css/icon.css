@@ -1,0 +1,44 @@
+.icon {
+    display: inline-block;
+    flex-shrink: 0;
+
+    background-color: currentColor;
+
+    mask-size: contain;
+    mask-position: center;
+    mask-repeat: no-repeat;
+
+    -webkit-mask-size: contain;
+    -webkit-mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+}
+
+.icon-home {
+    mask-image: url('../assets/icons/home.svg');
+    -webkit-mask-image: url('../assets/icons/home.svg');
+}
+
+.icon-home-bg {
+    mask-image: url('../assets/icons/home-bg.svg');
+    -webkit-mask-image: url('../assets/icons/home-bg.svg');
+}
+
+.icon-tasks {
+    mask-image: url('../assets/icons/tasks.svg');
+    -webkit-mask-image: url('../assets/icons/tasks.svg');
+}
+
+.icon-present {
+    mask-image: url('../assets/icons/present.svg');
+    -webkit-mask-image: url('../assets/icons/present.svg');
+}
+
+.icon-activity {
+    mask-image: url('../assets/icons/activity.svg');
+    -webkit-mask-image: url('../assets/icons/activity.svg');
+}
+
+.icon-profile {
+    mask-image: url('../assets/icons/profile.svg');
+    -webkit-mask-image: url('../assets/icons/profile.svg');
+}
