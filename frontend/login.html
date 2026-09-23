@@ -6,9 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Doofenshmirtz</title>
+    <link rel="shortcut icon" href="./assets/favicon-bg.svg" type="image/x-icon">
+
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/icon.css">
+    <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/brand.css">
+    <link rel="stylesheet" href="./css/login.css">
 </head>
 
 <body>
+    <a href="/" class="brand">
+        <img class="brand-icon" src="./assets/favicon.svg" alt="">
+        <p class="brand__title-container">
+            <span class="brand__title-bold">Doofenshmirtz</span>
+            <span class="brand__title-description">Clean control. Clear progress.</span>
+        </p>
+    </a>
 
     <main>
 
@@ -93,6 +108,32 @@
 
     </main>
 
+    <nav>
+        <a href="/">
+            <span class="icon icon-home-bg current"></span>
+            Home
+        </a>
+
+        <a href="/tasks">
+            <span class="icon icon-tasks"></span>
+            Tasks
+        </a>
+
+        <a href="/rewards">
+            <span class="icon icon-present"></span>
+            Rewards
+        </a>
+
+        <a href="/activity">
+            <span class="icon icon-activity"></span>
+            Activity
+        </a>
+
+        <a href="/profile">
+            <span class="icon icon-profile"></span>
+            Profile
+        </a>
+    </nav>
 
     <script type="module">
         import { authApi } from './js/api/index.js';
