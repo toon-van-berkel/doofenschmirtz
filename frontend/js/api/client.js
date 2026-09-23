@@ -9,7 +9,7 @@ const isLocal =
     window.location.hostname === '127.0.0.1';
 
 const API_URL = isLocal
-    ? 'https://doofenschmirtz.test'
+    ? 'http://tl1-doof.test/'
     : '/api';
 
 
