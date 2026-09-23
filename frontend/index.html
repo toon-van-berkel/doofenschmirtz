@@ -1,14 +1,7 @@
-<?php
-
-$username;
-$points;
-
-?>
-
-<!DOCTYPE html>
-<html lang="en">
+<!-- Use backend code to fetch user info, to be reflected in the home page and profile section -->
 
 <head>
+    <link rel="stylesheet" href="css/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -17,53 +10,70 @@ $points;
 
 <body>
 
-    <nav>
-        <div>
+    <a href="" class="header">
+        <div class="greeting">
             <h1>Welkom, <?= $username ?? ''?></h1>
         </div>
 
-        <div>
-            <!-- Profile Icon or hamburger menu here -->
-        </div>
-    </nav>
+    </a>
+
+
 
     <main>
-        <header class="my-currency">
+        <div class="current-points">
             <h2>
-                You have <span id="points"> <?= $points ?? 0 ?></span> points.
+                You have <?= $points ?? 0 ?> points.
             </h2>
+        </div>
 
-        </header>
-
+        
         <section class="main-card"> 
+            <a href="my-quests.html">
+                My Quests
+            </a>
 
-
+            <a href="daily-quest.html">
+                Daily Quest
+            </a>
         </section>
 
-        <section class="quest-card">
-
-
+        <section class="store-section">
+                <a href="store.html">Store</a>
         </section>
 
-
+        
     </main>
 
     <footer>
         <div id="home">
-
+            <a href="index.html">
+                <img src="images/home-icon.png" alt="Home Icon">
         </div>
 
         <div id="my-quests">
-            
+            <a href="my-quests.html">
+                <img src="images/my-quests-icon.png" alt="My Quests Icon">
         </div>
 
         <div id="points">
-            
+            <a href="points.html">
+                <img src="images/points-icon.png" alt="Points Icon">
         </div>
 
         <div id="profile">
-            
+            <a href="profile.html">
+                <img src="images/profile-icon.png" alt="Profile Icon">
         </div>
     </footer>
 
+
+<!-- Script for backend API calls -->
+    <script type="module">
+        import { authApi } from './js/api/index.js';
+
+
+        console.log(authApi);
+
+
+    </script>
 </body>
