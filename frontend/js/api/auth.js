@@ -18,5 +18,13 @@ export const authApi = {
             email,
             password
         });
+    },
+
+    currentUser() {
+        return api.get('/auth/me');
+    },
+
+    logout() {
+        return api.post('/auth/logout');
     }
 };
