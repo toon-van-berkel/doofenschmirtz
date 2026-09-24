@@ -35,9 +35,9 @@ async function request(path, options = {}) {
     const data = await response.json();
 
     if (!response.ok) {
-        throw new Error(
-            data.message ?? 'API request failed'
-        );
+        const error = new Error(data.message ?? 'API request failed');
+        error.status = response.status;
+        throw error;
     }
 
     return data;

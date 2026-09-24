@@ -122,6 +122,38 @@ class AuthController
         );
     }
 
+    public function me(): void
+    {
+        $userId = $_SESSION['user_id'] ?? null;
+
+        if (!$userId) {
+            $this->respond(401, false, 'Not authenticated');
+
+            return;
+        }
+
+        $user = $this->authService->findById((int) $userId);
+
+        if (!$user) {
+            unset($_SESSION['user_id']);
+            $this->respond(401, false, 'Not authenticated');
+
+            return;
+        }
+
+        $this->respond(200, true, null, [
+            'user' => $user
+        ]);
+    }
+
+    public function logout(): void
+    {
+        $_SESSION = [];
+        session_destroy();
+
+        $this->respond(200, true, 'Logged out');
+    }
+
     /*
         Reads the current request body and converts JSON input into an array.
 

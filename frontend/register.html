@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log in | Doofenshmirtz</title>
+    <title>Sign up | Doofenshmirtz</title>
     <link rel="shortcut icon" href="./assets/favicon-bg.svg" type="image/x-icon">
     <link rel="stylesheet" href="./css/base/common.css">
     <link rel="stylesheet" href="./css/base/colors.css">
@@ -16,9 +16,10 @@
     <link rel="stylesheet" href="./css/auth/feedback.css">
     <link rel="stylesheet" href="./css/auth/modals.css">
     <link rel="stylesheet" href="./css/auth/animations.css">
+    <link rel="stylesheet" href="./css/auth/register.css">
 </head>
 <body class="auth-page">
-    <main class="auth-card">
+    <main class="auth-card register-card">
         <a href="/" class="brand">
             <img
                 class="brand-icon"
@@ -30,19 +31,39 @@
                 <span class="brand__title-description">Clean control. Clear progress.</span>
             </span>
         </a>
-
         <section class="auth-content">
-            <h1>Welcome back!</h1>
-            <p class="auth-intro">Log in to your Doofenshmirtz account and keep earning points.</p>
+
+            <h1>Create account</h1>
+            <p class="auth-intro">Join Doofenshmirtz and start earning points.</p>
             <form
-                id="login-form"
+                id="register-form"
                 class="auth-form"
                 novalidate
             >
                 <div class="field-group">
-                    <label for="login-email">Email address</label>
+                    <label for="register-name">Full name</label>
                     <div class="field-input-wrap">
-                        <p class="field-error" id="login-email-error" role="alert"></p>
+                        <p class="field-error" id="register-name-error" role="alert"></p>
+                        <div class="input-container">
+                            <span
+                                class="icon icon-profile-thick input-icon"
+                                aria-hidden="true"
+                            ></span>
+                            <input
+                                placeholder="Your full name"
+                                type="text"
+                                name="fullName"
+                                id="register-name"
+                                autocomplete="name"
+                                required
+                            >
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label for="register-email">Email address</label>
+                    <div class="field-input-wrap">
+                        <p class="field-error" id="register-email-error" role="alert"></p>
                         <div class="input-container">
                             <span
                                 class="icon icon-mail input-icon"
@@ -52,35 +73,35 @@
                                 placeholder="your@gmail.com"
                                 type="email"
                                 name="email"
-                                id="login-email"
+                                id="register-email"
                                 autocomplete="email"
                                 required
                             >
                         </div>
                     </div>
                 </div>
-                <div class="field-group">
-                    <label for="login-password">Password</label>
+                <div class="field-group register-password-group">
+                    <label for="register-password">Password</label>
                     <div class="field-input-wrap">
-                        <p class="field-error" id="login-password-error" role="alert"></p>
+                        <p class="field-error" id="register-password-error" role="alert"></p>
                         <div class="input-container password-input">
                             <span
                                 class="password-lock"
                                 aria-hidden="true"
                             ></span>
                             <input
-                                placeholder="Enter your password"
+                                placeholder="Create a password"
                                 type="password"
                                 name="password"
-                                id="login-password"
-                                autocomplete="current-password"
+                                id="register-password"
+                                autocomplete="new-password"
                                 required
                             >
                             <button
                                 class="password-toggle"
                                 type="button"
                                 aria-label="Show password"
-                                data-password-toggle="login-password"
+                                data-password-toggle="register-password"
                             >
                                 <span
                                     class="icon icon-eye-hidden"
@@ -88,33 +109,45 @@
                                 ></span>
                             </button>
                         </div>
+                        <div class="password-requirements" aria-live="polite">
+                            <div class="password-requirement" data-requirement="length">
+                                <span class="requirement-check" aria-hidden="true"></span>
+                                <span>Minimum 8 characters</span>
+                            </div>
+                            <div class="password-requirement" data-requirement="case">
+                                <span class="requirement-check" aria-hidden="true"></span>
+                                <span>One uppercase and one lowercase letter</span>
+                            </div>
+                            <div class="password-requirement" data-requirement="number-special">
+                                <span class="requirement-check" aria-hidden="true"></span>
+                                <span>One number or special character</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-bottom">
-                    <label class="checkbox-container" for="remember-me">
+                <div class="field-group terms-field-group">
+                    <label class="checkbox-container" for="terms">
                         <input
                             type="checkbox"
-                            name="remember"
-                            id="remember-me"
+                            id="terms"
+                            required
                         >
                         <span
                             class="checkbox-mark"
                             aria-hidden="true"
                         ></span>
-                        <span>Remember me</span>
+                        <span>
+                            I agree to the
+                            <a href="#terms">Terms &amp; Privacy Policy</a>
+                        </span>
                     </label>
-                    <button
-                        class="text-button"
-                        type="button"
-                    >
-                        Forgot your password?
-                    </button>
+                    <p class="field-error" id="terms-error" role="alert"></p>
                 </div>
                 <button
                     class="primary-button"
                     type="submit"
                 >
-                    Log in <span>→</span>
+                    Sign up <span>→</span>
                 </button>
             </form>
             <div class="separator">
@@ -142,7 +175,7 @@
                 ></span>
                 Continue with Google
             </button>
-            <p class="auth-footer">Don't have an account yet? <a href="./register.html">Sign up</a></p>
+            <p class="auth-footer">Already have an account? <a href="./login.html">Log in</a></p>
         </section>
     </main>
     <div
@@ -230,11 +263,11 @@
     </div>
     <div
         class="service-modal success-modal"
-        id="login-success-modal"
+        id="success-modal"
         hidden
         role="dialog"
         aria-modal="true"
-        aria-labelledby="login-success-title"
+        aria-labelledby="success-title"
     >
         <div class="modal-panel">
             <div class="error-symbol-area">
@@ -256,14 +289,14 @@
                     <span class="icon icon-check error-symbol__icon"></span>
                 </span>
             </div>
-            <h2 id="login-success-title">Login successful</h2>
-            <p>You are now logged in.</p>
+            <h2 id="success-title">Account created</h2>
+            <p>Your account has been created successfully.</p>
             <button
                 class="primary-button"
                 type="button"
-                data-login-success-close
+                data-success-close
             >
-                Continue
+                Go to login
             </button>
         </div>
     </div>
@@ -289,6 +322,6 @@
             Profile
         </a>
     </nav>
-    <script type="module" src="./js/auth/login.js"></script>
+    <script type="module" src="./js/auth/register.js"></script>
 </body>
 </html>

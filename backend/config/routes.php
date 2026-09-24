@@ -10,4 +10,6 @@
 return [
     'POST /auth/register' => [AuthController::class, 'register'],
     'POST /auth/login' => [AuthController::class, 'login'],
+    'GET /auth/me' => [AuthController::class, 'me'],
+    'POST /auth/logout' => [AuthController::class, 'logout'],
 ];

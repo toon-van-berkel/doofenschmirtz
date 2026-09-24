@@ -1,13 +1,14 @@
 .brand {
-    padding: 24px 20px 16px;
+    width: 100%;
+    padding-bottom: 5px;
 
-    display: flex;
     align-items: center;
     justify-content: center;
+    display: flex;
     gap: 14px;
 
     text-decoration: none;
-    color: #030303;
+    color: var(--color-text-primary);
 }
 
 .brand-icon {
@@ -37,5 +38,5 @@
     font-weight: var(--font-regular);
     letter-spacing: -0.5px;
 
-    color: #796AAC;
+    color: var(--color-brand-primary);
 }
