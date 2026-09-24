@@ -2,6 +2,12 @@
 
 <head>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/icon.css">
+    <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/brand.css">
+    <link rel="stylesheet" href="./css/login.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,13 +15,20 @@
 </head>
 
 <body>
+    <a href="/" class="brand">
+        <img class="brand-icon" src="./assets/favicon.svg" alt="">
+        <p class="brand__title-container">
+            <span class="brand__title-bold">Doofenshmirtz</span>
+            <span class="brand__title-description">Clean control. Clear progress.</span>
+        </p>
+    </a>
 
-    <a href="" class="header">
+    <!-- <a href="" class="header">
         <div class="greeting">
             <h1>Welkom, <?= $username ?? ''?></h1>
         </div>
 
-    </a>
+    </a> -->
 
 
 
@@ -44,27 +57,32 @@
         
     </main>
 
-    <footer>
-        <div id="home">
-            <a href="index.html">
-                <img src="images/home-icon.png" alt="Home Icon">
-        </div>
+    <nav>
+        <a href="/">
+            <span class="icon icon-home-bg current"></span>
+            Home
+        </a>
 
-        <div id="my-quests">
-            <a href="my-quests.html">
-                <img src="images/my-quests-icon.png" alt="My Quests Icon">
-        </div>
+        <a href="/tasks">
+            <span class="icon icon-tasks"></span>
+            Tasks
+        </a>
 
-        <div id="points">
-            <a href="points.html">
-                <img src="images/points-icon.png" alt="Points Icon">
-        </div>
+        <a href="/rewards">
+            <span class="icon icon-present"></span>
+            Rewards
+        </a>
 
-        <div id="profile">
-            <a href="profile.html">
-                <img src="images/profile-icon.png" alt="Profile Icon">
-        </div>
-    </footer>
+        <a href="/activity">
+            <span class="icon icon-activity"></span>
+            Activity
+        </a>
+
+        <a href="/profile">
+            <span class="icon icon-profile"></span>
+            Profile
+        </a>
+    </nav>
 
 
 <!-- Script for backend API calls -->

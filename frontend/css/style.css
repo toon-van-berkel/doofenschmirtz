@@ -11,7 +11,7 @@ h1, h2 {
 
 /* Nav bar */
 
-.header {
+/* .header {
     display: flex;
     background-color: #FBFBFB;
     text-decoration: none;
@@ -24,7 +24,7 @@ h1, h2 {
     top: 0;
     z-index: 999;
     border-bottom: 3px solid #e2e5eb;
-}
+} */
 
 .greeting, .greeting h1 {
     display: flex;
