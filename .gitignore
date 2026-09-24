@@ -1,5 +1,6 @@
 deploy/
 backend/config/database.php
+frontend/js/api/client.js
 .env
 .env.*
 .DS_Store

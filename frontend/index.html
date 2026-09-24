@@ -1,0 +1,97 @@
+<!-- Use backend code to fetch user info, to be reflected in the home page and profile section -->
+
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/icon.css">
+    <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/brand.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Doofenshmirtz</title>
+</head>
+
+<body>
+    <a href="/" class="brand">
+        <img class="brand-icon" src="./assets/favicon.svg" alt="">
+        <p class="brand__title-container">
+            <span class="brand__title-bold">Doofenshmirtz</span>
+            <span class="brand__title-description">Clean control. Clear progress.</span>
+        </p>
+    </a>
+
+    <!-- <a href="" class="header">
+        <div class="greeting">
+            <h1>Welkom, <?= $username ?? ''?></h1>
+        </div>
+
+    </a> -->
+
+
+
+    <main>
+        <div class="current-points">
+            <h2>
+                You have <?= $points ?? 0 ?> points.
+            </h2>
+        </div>
+
+        
+        <section class="main-card"> 
+            <a href="my-quests.html">
+                My Quests
+            </a>
+
+            <a href="daily-quest.html">
+                Daily Quest
+            </a>
+        </section>
+
+        <section class="store-section">
+                <a href="store.html">Store</a>
+        </section>
+
+        
+    </main>
+
+    <nav>
+        <a href="/">
+            <span class="icon icon-home-bg current"></span>
+            Home
+        </a>
+
+        <a href="/tasks">
+            <span class="icon icon-tasks"></span>
+            Tasks
+        </a>
+
+        <a href="/rewards">
+            <span class="icon icon-present"></span>
+            Rewards
+        </a>
+
+        <a href="/activity">
+            <span class="icon icon-activity"></span>
+            Activity
+        </a>
+
+        <a href="/profile">
+            <span class="icon icon-profile"></span>
+            Profile
+        </a>
+    </nav>
+
+
+<!-- Script for backend API calls -->
+    <script type="module">
+        import { authApi } from './js/api/index.js';
+
+
+        console.log(authApi);
+
+
+    </script>
+</body>
