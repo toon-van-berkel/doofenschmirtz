@@ -1,13 +1,12 @@
 <!-- Use backend code to fetch user info, to be reflected in the home page and profile section -->
 
 <head>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./css/icon.css">
-    <link rel="stylesheet" href="./css/nav.css">
-    <link rel="stylesheet" href="./css/brand.css">
-    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/base/common.css">
+    <link rel="stylesheet" href="./css/base/colors.css">
+    <link rel="stylesheet" href="./css/base/font.css">
+    <link rel="stylesheet" href="./css/base/icon.css">
+    <link rel="stylesheet" href="./css/base/brand.css">
+    <link rel="stylesheet" href="./css/components/nav.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -15,6 +14,7 @@
 </head>
 
 <body>
+    <h1>Hallo <span id="username"></span></h1>
     <a href="/" class="brand">
         <img class="brand-icon" src="./assets/favicon.svg" alt="">
         <p class="brand__title-container">
@@ -27,10 +27,7 @@
         <div class="greeting">
             <h1>Welkom, <?= $username ?? ''?></h1>
         </div>
-
     </a> -->
-
-
 
     <main>
         <div class="current-points">
@@ -53,45 +50,32 @@
         <section class="store-section">
                 <a href="store.html">Store</a>
         </section>
-
         
     </main>
 
     <nav>
-        <a href="/">
-            <span class="icon icon-home-bg current"></span>
+        <a href="./index.html">
+            <span class="icon icon-home"></span>
             Home
         </a>
-
-        <a href="/tasks">
+        <a href="./tasks.html">
             <span class="icon icon-tasks"></span>
             Tasks
         </a>
-
-        <a href="/rewards">
+        <a href="./rewards.html">
             <span class="icon icon-present"></span>
             Rewards
         </a>
-
-        <a href="/activity">
+        <a href="./activity.html">
             <span class="icon icon-activity"></span>
             Activity
         </a>
-
-        <a href="/profile">
-            <span class="icon icon-profile"></span>
+        <a href="./profile.html">
+            <span class="icon icon-profile-bg current"></span>
             Profile
         </a>
     </nav>
-
-
-<!-- Script for backend API calls -->
-    <script type="module">
-        import { authApi } from './js/api/index.js';
-
-
-        console.log(authApi);
-
-
-    </script>
+    
+    <!-- Script for backend API calls -->
+    <script type="module" src="./js/home.js"></script>
 </body>
