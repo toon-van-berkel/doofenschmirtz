@@ -16,7 +16,9 @@ CREATE DATABASE doofenshmirtz;
 4. Set `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, and `APP_ENV` in that
    environment file.
 
-`database.example.php` is the shared template. `database.php` contains developer-specific credentials and is ignored by Git. Do not commit real credentials or production data.
+`.env.example` is the shared template. Local `backend/.env` and production
+`.env.production` files contain environment-specific credentials and are
+ignored by Git. Do not commit real credentials or production data.
 
 ## Current schema
 
