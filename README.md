@@ -16,6 +16,9 @@ Current authentication endpoints:
 ```text
 POST /auth/register
 POST /auth/login
+GET /auth/me
+POST /auth/logout
+GET /health
 ```
 
 ## Documentation
