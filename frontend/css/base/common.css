@@ -11,3 +11,53 @@ body {
     background-color: var(--color-surface);
     color: var(--color-text-primary);
 }
+
+body.is-loading {
+    overflow: hidden;
+}
+
+.page-loader {
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: var(--color-surface);
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 420ms ease, visibility 420ms ease;
+}
+
+.page-loader__logo {
+    width: clamp(96px, 14vw, 150px);
+    height: auto;
+    animation: loaderPulse 1.25s ease-in-out infinite;
+}
+
+.page-loader.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+@keyframes loaderPulse {
+    0%, 100% {
+        opacity: 0.58;
+        transform: scale(0.94);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-loader__logo {
+        animation: none;
+    }
+
+    .page-loader {
+        transition-duration: 1ms;
+    }
+}

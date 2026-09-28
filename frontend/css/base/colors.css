@@ -1,4 +1,6 @@
 :root {
+    --sidebar-width: 248px;
+    --sidebar-collapsed-width: 76px;
     --color-brand-primary: #796AAC;
     --color-brand-dark: #634D99;
     --color-brand-light: #E7E6FE;
