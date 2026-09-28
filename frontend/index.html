@@ -13,9 +13,12 @@
     <title>Doofenshmirtz</title>
 </head>
 
-<body>
+<body class="is-loading">
+    <div class="page-loader" role="status" aria-label="Page loading">
+        <img class="page-loader__logo" src="./assets/favicon.svg" alt="">
+    </div>
     <h1>Hallo <span id="username"></span></h1>
-    <a href="/" class="brand">
+    <a href="./index.html" class="brand">
         <img class="brand-icon" src="./assets/favicon.svg" alt="">
         <p class="brand__title-container">
             <span class="brand__title-bold">Doofenshmirtz</span>
@@ -77,5 +80,7 @@
     </nav>
     
     <!-- Script for backend API calls -->
-    <script type="module" src="./js/home.js"></script>
+    <script type="module" src="./js/components/loader.js"></script>
+    <script type="module" src="./js/components/nav.js"></script>
+    <script type="module" src="./js/pages/home.js"></script>
 </body>

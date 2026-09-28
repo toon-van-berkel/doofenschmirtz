@@ -1,4 +1,4 @@
-import { authApi } from '../api/index.js';
+import { authApi } from '../../api/index.js';
 import {
     clearFieldError,
     closeFieldTooltip,
@@ -10,8 +10,8 @@ import {
     showSuccessModal,
     updatePasswordRequirements,
     updateSubmitButton
-} from './ui.js';
-import { getPasswordRequirementStates, validateEmail, validatePassword } from './validation.js';
+} from '../../utils/ui.js';
+import { getPasswordRequirementStates, validateEmail, validatePassword } from '../../utils/validation.js';
 
 const registerForm = document.querySelector('#register-form');
 const terms = document.querySelector('#terms');

@@ -70,7 +70,10 @@ export function closeAnimatedModal(target) {
     }, { once: true });
 }
 
-export function showServerError(title = 'Connection failed', message = 'Something went wrong while connecting to the server. Please try again later.') {
+export function showServerError(
+    title = 'Connection failed', 
+    message = 'Something went wrong while connecting to the server. Please try again later.'
+) {
     if (!serverErrorModal) {
         return;
     }

@@ -1,4 +1,4 @@
-import { authApi } from './api/index.js';
+import { authApi } from '../api/index.js';
 
 const username = document.querySelector('#profile-username');
 const logoutButton = document.querySelector('#logout-button');

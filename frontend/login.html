@@ -17,9 +17,12 @@
     <link rel="stylesheet" href="./css/auth/modals.css">
     <link rel="stylesheet" href="./css/auth/animations.css">
 </head>
-<body class="auth-page">
+<body class="auth-page is-loading">
+    <div class="page-loader" role="status" aria-label="Page loading">
+        <img class="page-loader__logo" src="./assets/favicon.svg" alt="">
+    </div>
     <main class="auth-card">
-        <a href="/" class="brand">
+        <a href="./index.html" class="brand">
             <img
                 class="brand-icon"
                 src="./assets/favicon.svg"
@@ -30,6 +33,10 @@
                 <span class="brand__title-description">Clean control. Clear progress.</span>
             </span>
         </a>
+
+        <figure class="auth-poster">
+            <img src="./assets/images/poster.png" alt="">
+        </figure>
 
         <section class="auth-content">
             <h1>Welcome back!</h1>
@@ -289,6 +296,8 @@
             Profile
         </a>
     </nav>
-    <script type="module" src="./js/auth/login.js"></script>
+    <script type="module" src="./js/components/loader.js"></script>
+    <script type="module" src="./js/components/nav.js"></script>
+    <script type="module" src="./js/pages/auth/login.js"></script>
 </body>
 </html>

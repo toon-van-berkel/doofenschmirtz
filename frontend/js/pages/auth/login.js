@@ -1,4 +1,4 @@
-import { authApi } from '../api/index.js';
+import { authApi } from '../../api/index.js';
 import {
     clearFieldError,
     closeFieldTooltip,
@@ -11,8 +11,8 @@ import {
     showLoginSuccessModal,
     showServerError,
     updateSubmitButton
-} from './ui.js';
-import { validateEmail } from './validation.js';
+} from '../../utils/ui.js';
+import { validateEmail } from '../../utils/validation.js';
 
 const loginForm = document.querySelector('#login-form');
 
