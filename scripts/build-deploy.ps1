@@ -37,6 +37,17 @@ Copy-Item `
     -Force
 
 
+# Copy production credentials only when the developer has supplied them locally.
+$productionEnvironment = Join-Path $root ".env.production"
+$deployedEnvironment = Join-Path $privateBackend ".env"
+
+if (Test-Path $productionEnvironment) {
+    Copy-Item $productionEnvironment $deployedEnvironment -Force
+} else {
+    Write-Warning "No .env.production found. Add _backend/.env manually before uploading."
+}
+
+
 # Never deploy the developer-specific database configuration.
 Remove-Item `
     (Join-Path $privateBackend "config\database.php") `
@@ -98,7 +109,6 @@ RewriteRule ^ index.php [L,QSA]
 Get-ChildItem $deploy -Recurse -Force -File |
     Where-Object {
         $_.Name -in @(
-            ".env",
             ".env.local",
             ".DS_Store"
         )

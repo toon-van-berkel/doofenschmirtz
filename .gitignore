@@ -3,4 +3,5 @@ backend/config/database.php
 frontend/js/api/client.js
 .env
 .env.*
+!.env.example
 .DS_Store

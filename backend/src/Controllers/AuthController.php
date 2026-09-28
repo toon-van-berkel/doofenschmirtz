@@ -2,6 +2,12 @@
 
 class AuthController
 {
+    /**
+     * Handles HTTP input and JSON output for authentication endpoints.
+     *
+     * AuthService contains the database and password logic. This controller
+     * stays focused on the boundary between an HTTP request and that service.
+     */
     private AuthService $authService;
 
     /*
@@ -17,12 +23,12 @@ class AuthController
         );
     }
 
-    /*
-        Registers a new user from the supplied JSON request body.
-
-        This method validates the incoming username, email and password before
-        passing the actual user creation to AuthService.
-    */
+    /**
+     * Registers a user from a JSON request body.
+     *
+     * Basic request checks and HTTP status selection happen here; persistence
+     * and password hashing remain inside AuthService.
+     */
     public function register(): void
     {
         $body = $this->getJsonBody();
@@ -74,12 +80,12 @@ class AuthController
         );
     }
 
-    /*
-        Authenticates a user from the supplied JSON request body.
-
-        The controller validates the request and delegates credential checking
-        and session creation to AuthService.
-    */
+    /**
+     * Authenticates a user from a JSON request body.
+     *
+     * AuthService verifies the password and regenerates the session ID. Only
+     * public user data is returned; the password hash never leaves the server.
+     */
     public function login(): void
     {
         $body = $this->getJsonBody();
@@ -124,6 +130,9 @@ class AuthController
 
     public function me(): void
     {
+        // Login stores only the user ID in the PHP session. Resolving that ID
+        // here lets the frontend restore the user after a page refresh without
+        // storing an authentication token in JavaScript.
         $userId = $_SESSION['user_id'] ?? null;
 
         if (!$userId) {
@@ -148,18 +157,34 @@ class AuthController
 
     public function logout(): void
     {
+        /**
+         * Logout clears both sides of the session: server-side session data
+         * and the browser cookie that points to that session.
+         */
+        $cookie = session_get_cookie_params();
+
         $_SESSION = [];
+
+        setcookie(session_name(), '', [
+            'expires' => time() - 42000,
+            'path' => $cookie['path'] ?? '/',
+            'domain' => $cookie['domain'] ?? '',
+            'secure' => $cookie['secure'] ?? false,
+            'httponly' => $cookie['httponly'] ?? true,
+            'samesite' => $cookie['samesite'] ?? 'Lax'
+        ]);
+
         session_destroy();
 
         $this->respond(200, true, 'Logged out');
     }
 
-    /*
-        Reads the current request body and converts JSON input into an array.
-
-        Invalid or empty JSON is returned as an empty array so the endpoint
-        validation can handle missing request data consistently.
-    */
+    /**
+     * Reads the JSON request body used by registration and login.
+     *
+     * Invalid or empty JSON becomes an empty array so endpoint validation can
+     * return a normal client error instead of a PHP warning.
+     */
     private function getJsonBody(): array
     {
         $body = json_decode(
@@ -170,12 +195,12 @@ class AuthController
         return is_array($body) ? $body : [];
     }
 
-    /*
-        Sends a JSON response using the common API response format.
-
-        Additional response data can be supplied through $data, for example
-        the user object returned after a successful login.
-    */
+    /**
+     * Sends the shared JSON response format used by all API endpoints.
+     *
+     * Additional data is limited to safe public values such as the user object;
+     * sensitive database fields are never passed into this method.
+     */
     private function respond(
         int $status,
         bool $success,
