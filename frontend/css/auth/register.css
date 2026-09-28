@@ -1,0 +1,110 @@
+/* Register-only password requirements and artwork */
+.register-card .password-requirements {
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding: 10px 12px;
+    border-radius: 0 0 13px 13px;
+    background: var(--color-brand-light);
+    color: #77749A;
+    font-size: 0.78rem;
+}
+
+.register-card .register-password-group .password-input {
+    margin-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.register-card .terms-field-group {
+    margin-bottom: 22px;
+}
+
+.register-card .password-requirement {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 24px;
+}
+
+.register-card .requirement-check {
+    display: inline-flex;
+    flex: 0 0 15px;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #B8B5D3;
+    border-radius: 50%;
+    background: transparent;
+}
+
+.register-card .requirement-check::after {
+    width: 4px;
+    height: 7px;
+    border-right: 1.5px solid var(--color-surface);
+    border-bottom: 1.5px solid var(--color-surface);
+    content: "";
+    opacity: 0;
+    transform: translateY(-1px) rotate(45deg) scale(0.6);
+}
+
+.register-card .password-requirement.is-valid {
+    color: #4E4A78;
+}
+
+.register-card .password-requirement.is-valid .requirement-check {
+    border-color: var(--color-brand-primary);
+    background: var(--color-brand-primary);
+}
+
+.register-card .password-requirement.is-valid .requirement-check::after {
+    opacity: 1;
+    transform: translateY(-1px) rotate(45deg) scale(1);
+}
+
+.register-card .requirement-check.is-animating {
+    animation: requirementPop 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.register-card .auth-art {
+    position: relative;
+    height: 92px;
+    margin: 0 -20px 12px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 92% 18%, var(--color-brand-light) 0 22%, transparent 23%),
+        radial-gradient(circle at 76% 0%, var(--color-brand-light) 0 30%, transparent 31%);
+}
+
+.register-card .auth-art span {
+    position: absolute;
+    width: 34px;
+    height: 8px;
+    border-radius: 999px;
+    background: #82F5C6;
+    transform: rotate(42deg);
+}
+
+.register-card .auth-art span:nth-child(1) { top: 28px; right: 74px; }
+.register-card .auth-art span:nth-child(2) { top: 58px; right: 42px; transform: rotate(-12deg); }
+.register-card .auth-art span:nth-child(3) { display: none; }
+
+@keyframes requirementPop {
+    0% {
+        transform: scale(1);
+    }
+
+    55% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .register-card .requirement-check.is-animating {
+        animation: none;
+    }
+}

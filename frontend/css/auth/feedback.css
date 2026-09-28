@@ -1,0 +1,62 @@
+/* Validation feedback */
+.field-error {
+    display: none;
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 8px);
+    z-index: 4;
+    margin: 0;
+    padding: 7px 9px;
+    border: 1px solid var(--color-error);
+    border-radius: 8px;
+    background: var(--color-error-light);
+    color: var(--color-error);
+    box-shadow: 0 4px 10px rgba(156, 0, 6, 0.12);
+    font-size: 0.75rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.field-error--visible {
+    display: block;
+    animation: fieldTooltipIn 200ms ease-out;
+}
+
+.field-error--visible.is-closing {
+    animation: fieldTooltipOut 150ms ease-in forwards;
+}
+
+.field-error::after {
+    position: absolute;
+    right: 18px;
+    bottom: -6px;
+    width: 10px;
+    height: 10px;
+    border-right: 1px solid var(--color-error);
+    border-bottom: 1px solid var(--color-error);
+    background: var(--color-error-light);
+    content: "";
+    transform: rotate(45deg);
+}
+
+.terms-field-group .field-error {
+    bottom: calc(100% + 6px);
+}
+
+.terms-field-group a {
+    color: var(--color-brand-dark);
+    text-decoration: underline;
+}
+
+.input-container--error {
+    border-color: var(--color-error);
+    background: var(--color-error-surface);
+}
+
+.input-container--error .input-icon,
+.input-container--error .password-lock,
+.input-container--error .password-toggle,
+.input-error {
+    color: var(--color-error);
+}

@@ -9,8 +9,7 @@ doofenschmirtz/
 │   └── js/api/
 ├── backend/
 │   ├── config/
-│   │   ├── database.php
-│   │   ├── database.example.php
+    │   │   ├── env.php
 │   │   └── routes.php
 │   ├── public/
 │   │   ├── .htaccess
@@ -59,6 +58,9 @@ The currently supported endpoints are:
 ```text
 POST /auth/register
 POST /auth/login
+GET /auth/me
+POST /auth/logout
+GET /health
 ```
 
 The frontend sends these requests through `frontend/js/api/client.js`. Feature-
@@ -67,10 +69,9 @@ exported through `frontend/js/api/index.js`.
 
 ## Database
 
-Each developer uses a local MySQL or MariaDB database. Copy
-`backend/config/database.example.php` to `backend/config/database.php` and set
-the local credentials. The latter file is developer-specific and ignored by
-Git.
+Each developer uses a local MySQL or MariaDB database. Set the database
+variables from `.env.example` in a local environment file. Never commit real
+credentials.
 
 See [DATABASE.md](DATABASE.md) for the schema setup.
 

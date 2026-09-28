@@ -11,10 +11,14 @@ CREATE DATABASE doofenshmirtz;
 ```
 
 2. Import [database/schema.sql](../database/schema.sql).
-3. Copy `backend/config/database.example.php` to `backend/config/database.php`.
-4. Set the local host, database, username, and password in `database.php`.
+3. Copy `.env.example` to `.env.production` for a deployment build, or create
+   `backend/.env` for local backend development.
+4. Set `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, and `APP_ENV` in that
+   environment file.
 
-`database.example.php` is the shared template. `database.php` contains developer-specific credentials and is ignored by Git. Do not commit real credentials or production data.
+`.env.example` is the shared template. Local `backend/.env` and production
+`.env.production` files contain environment-specific credentials and are
+ignored by Git. Do not commit real credentials or production data.
 
 ## Current schema
 

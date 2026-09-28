@@ -108,4 +108,27 @@ class AuthService
             'email' => $user['email']
         ];
     }
+
+    public function findById(int $id): ?array
+    {
+        $stmt = $this->db->prepare(
+            'SELECT id, username, email
+             FROM users
+             WHERE id = ?
+             LIMIT 1'
+        );
+
+        $stmt->execute([$id]);
+        $user = $stmt->fetch();
+
+        if (!$user) {
+            return null;
+        }
+
+        return [
+            'id' => $user['id'],
+            'username' => $user['username'],
+            'email' => $user['email']
+        ];
+    }
 }

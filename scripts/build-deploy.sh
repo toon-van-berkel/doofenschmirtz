@@ -29,6 +29,14 @@ cp -R "$ROOT/frontend/." "$HTDOCS/"
 cp -R "$ROOT/backend/." "$PRIVATE_BACKEND/"
 
 
+# Copy production credentials only when the developer has supplied them locally.
+if [ -f "$ROOT/.env.production" ]; then
+    cp "$ROOT/.env.production" "$PRIVATE_BACKEND/.env"
+else
+    echo "WARNING: No .env.production found. Add _backend/.env manually before uploading."
+fi
+
+
 # Never deploy the developer-specific database configuration.
 rm -f "$PRIVATE_BACKEND/config/database.php"
 
@@ -64,8 +72,7 @@ EOF
 
 
 find "$DEPLOY" -type f \( \
-    -name ".env" \
-    -o -name ".env.local" \
+    -name ".env.local" \
     -o -name ".DS_Store" \
 \) -delete
 

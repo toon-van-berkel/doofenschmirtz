@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up | Doofenshmirtz</title>
+    <link rel="shortcut icon" href="./assets/favicon-bg.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/base/common.css">
+    <link rel="stylesheet" href="./css/base/colors.css">
+    <link rel="stylesheet" href="./css/base/font.css">
+    <link rel="stylesheet" href="./css/base/icon.css">
+    <link rel="stylesheet" href="./css/base/brand.css">
+    <link rel="stylesheet" href="./css/components/nav.css">
+    <link rel="stylesheet" href="./css/auth/layout.css">
+    <link rel="stylesheet" href="./css/auth/form.css">
+    <link rel="stylesheet" href="./css/auth/feedback.css">
+    <link rel="stylesheet" href="./css/auth/modals.css">
+    <link rel="stylesheet" href="./css/auth/animations.css">
+    <link rel="stylesheet" href="./css/auth/register.css">
+</head>
+<body class="auth-page">
+    <main class="auth-card register-card">
+        <a href="/" class="brand">
+            <img
+                class="brand-icon"
+                src="./assets/favicon.svg"
+                alt=""
+            >
+            <span class="brand__title-container">
+                <span class="brand__title-bold">Doofenshmirtz</span>
+                <span class="brand__title-description">Clean control. Clear progress.</span>
+            </span>
+        </a>
+        <section class="auth-content">
+
+            <h1>Create account</h1>
+            <p class="auth-intro">Join Doofenshmirtz and start earning points.</p>
+            <form
+                id="register-form"
+                class="auth-form"
+                novalidate
+            >
+                <div class="field-group">
+                    <label for="register-name">Full name</label>
+                    <div class="field-input-wrap">
+                        <p class="field-error" id="register-name-error" role="alert"></p>
+                        <div class="input-container">
+                            <span
+                                class="icon icon-profile-thick input-icon"
+                                aria-hidden="true"
+                            ></span>
+                            <input
+                                placeholder="Your full name"
+                                type="text"
+                                name="fullName"
+                                id="register-name"
+                                autocomplete="name"
+                                required
+                            >
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label for="register-email">Email address</label>
+                    <div class="field-input-wrap">
+                        <p class="field-error" id="register-email-error" role="alert"></p>
+                        <div class="input-container">
+                            <span
+                                class="icon icon-mail input-icon"
+                                aria-hidden="true"
+                            ></span>
+                            <input
+                                placeholder="your@gmail.com"
+                                type="email"
+                                name="email"
+                                id="register-email"
+                                autocomplete="email"
+                                required
+                            >
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group register-password-group">
+                    <label for="register-password">Password</label>
+                    <div class="field-input-wrap">
+                        <p class="field-error" id="register-password-error" role="alert"></p>
+                        <div class="input-container password-input">
+                            <span
+                                class="password-lock"
+                                aria-hidden="true"
+                            ></span>
+                            <input
+                                placeholder="Create a password"
+                                type="password"
+                                name="password"
+                                id="register-password"
+                                autocomplete="new-password"
+                                required
+                            >
+                            <button
+                                class="password-toggle"
+                                type="button"
+                                aria-label="Show password"
+                                data-password-toggle="register-password"
+                            >
+                                <span
+                                    class="icon icon-eye-hidden"
+                                    aria-hidden="true"
+                                ></span>
+                            </button>
+                        </div>
+                        <div class="password-requirements" aria-live="polite">
+                            <div class="password-requirement" data-requirement="length">
+                                <span class="requirement-check" aria-hidden="true"></span>
+                                <span>Minimum 8 characters</span>
+                            </div>
+                            <div class="password-requirement" data-requirement="case">
+                                <span class="requirement-check" aria-hidden="true"></span>
+                                <span>One uppercase and one lowercase letter</span>
+                            </div>
+                            <div class="password-requirement" data-requirement="number-special">
+                                <span class="requirement-check" aria-hidden="true"></span>
+                                <span>One number or special character</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group terms-field-group">
+                    <label class="checkbox-container" for="terms">
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            required
+                        >
+                        <span
+                            class="checkbox-mark"
+                            aria-hidden="true"
+                        ></span>
+                        <span>
+                            I agree to the
+                            <a href="#terms">Terms &amp; Privacy Policy</a>
+                        </span>
+                    </label>
+                    <p class="field-error" id="terms-error" role="alert"></p>
+                </div>
+                <button
+                    class="primary-button"
+                    type="submit"
+                >
+                    Sign up <span>→</span>
+                </button>
+            </form>
+            <div class="separator">
+                <span>or</span>
+            </div>
+            <button
+                class="social-button"
+                type="button"
+                data-social="Microsoft"
+            >
+                <span
+                    class="icon icon-microsoft social-icon"
+                    aria-hidden="true"
+                ></span>
+                Continue with Microsoft
+            </button>
+            <button
+                class="social-button"
+                type="button"
+                data-social="Google"
+            >
+                <span
+                    class="icon icon-google social-icon"
+                    aria-hidden="true"
+                ></span>
+                Continue with Google
+            </button>
+            <p class="auth-footer">Already have an account? <a href="./login.html">Log in</a></p>
+        </section>
+    </main>
+    <div
+        class="service-modal"
+        id="service-modal"
+        hidden
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="service-title"
+    >
+        <div class="modal-panel">
+            <div class="error-symbol-area">
+                <span class="error-symbol" aria-hidden="true">
+                    <span class="error-symbol__pulse"></span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--top-left">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--top-right">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--bottom-left">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--bottom-right">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__mask"></span>
+                    <span class="icon icon-exclamation error-symbol__icon"></span>
+                </span>
+            </div>
+            <h2 id="service-title">Services not connected</h2>
+            <p>Google and Microsoft sign-in are not connected yet. For now, use your email address and password, or try again later.</p>
+            <div class="service-provider-row" aria-hidden="true">
+                <span class="service-provider-card"><span class="icon icon-google"></span></span>
+                <span class="icon icon-link-break service-link-break"></span>
+                <span class="service-provider-card"><span class="icon icon-microsoft"></span></span>
+            </div>
+            <button
+                class="primary-button"
+                type="button"
+                data-modal-close
+            >
+                Understood
+            </button>
+        </div>
+    </div>
+    <div
+        class="server-error-modal"
+        id="server-error-modal"
+        hidden
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="server-error-title"
+    >
+        <div class="server-error-modal__panel">
+            <div class="error-symbol-area">
+                <span class="error-symbol" aria-hidden="true">
+                    <span class="error-symbol__pulse"></span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--top-left">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--top-right">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--bottom-left">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--bottom-right">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__mask"></span>
+                    <span class="icon icon-exclamation error-symbol__icon"></span>
+                </span>
+            </div>
+            <h2 id="server-error-title">Connection failed</h2>
+            <p>Something went wrong while connecting to the server. Please try again later.</p>
+            <button
+                class="primary-button"
+                type="button"
+                data-server-error-close
+            >
+                Understood
+            </button>
+        </div>
+    </div>
+    <div
+        class="service-modal success-modal"
+        id="success-modal"
+        hidden
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="success-title"
+    >
+        <div class="modal-panel">
+            <div class="error-symbol-area">
+                <span class="error-symbol" aria-hidden="true">
+                    <span class="error-symbol__pulse"></span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--top-left">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--top-right">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--bottom-left">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--bottom-right">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__mask"></span>
+                    <span class="icon icon-check error-symbol__icon"></span>
+                </span>
+            </div>
+            <h2 id="success-title">Account created</h2>
+            <p>Your account has been created successfully.</p>
+            <button
+                class="primary-button"
+                type="button"
+                data-success-close
+            >
+                Go to login
+            </button>
+        </div>
+    </div>
+    <nav>
+        <a href="./index.html">
+            <span class="icon icon-home"></span>
+            Home
+        </a>
+        <a href="./tasks.html">
+            <span class="icon icon-tasks"></span>
+            Tasks
+        </a>
+        <a href="./rewards.html">
+            <span class="icon icon-present"></span>
+            Rewards
+        </a>
+        <a href="./activity.html">
+            <span class="icon icon-activity"></span>
+            Activity
+        </a>
+        <a href="./profile.html">
+            <span class="icon icon-profile-bg current"></span>
+            Profile
+        </a>
+    </nav>
+    <script type="module" src="./js/auth/register.js"></script>
+</body>
+</html>

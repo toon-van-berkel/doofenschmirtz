@@ -1,165 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Doofenshmirtz</title>
+    <title>Log in | Doofenshmirtz</title>
+    <link rel="shortcut icon" href="./assets/favicon-bg.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/base/common.css">
+    <link rel="stylesheet" href="./css/base/colors.css">
+    <link rel="stylesheet" href="./css/base/font.css">
+    <link rel="stylesheet" href="./css/base/icon.css">
+    <link rel="stylesheet" href="./css/base/brand.css">
+    <link rel="stylesheet" href="./css/components/nav.css">
+    <link rel="stylesheet" href="./css/auth/layout.css">
+    <link rel="stylesheet" href="./css/auth/form.css">
+    <link rel="stylesheet" href="./css/auth/feedback.css">
+    <link rel="stylesheet" href="./css/auth/modals.css">
+    <link rel="stylesheet" href="./css/auth/animations.css">
 </head>
+<body class="auth-page">
+    <main class="auth-card">
+        <a href="/" class="brand">
+            <img
+                class="brand-icon"
+                src="./assets/favicon.svg"
+                alt=""
+            >
+            <span class="brand__title-container">
+                <span class="brand__title-bold">Doofenshmirtz</span>
+                <span class="brand__title-description">Clean control. Clear progress.</span>
+            </span>
+        </a>
 
-<body>
-
-    <main>
-
-        <section>
-            <h1>Register</h1>
-
-            <form id="register-form">
-
-                <label>
-                    Username
-                    <input
-                        type="text"
-                        id="register-username"
-                        autocomplete="username"
-                        required
+        <section class="auth-content">
+            <h1>Welcome back!</h1>
+            <p class="auth-intro">Log in to your Doofenshmirtz account and keep earning points.</p>
+            <form
+                id="login-form"
+                class="auth-form"
+                novalidate
+            >
+                <div class="field-group">
+                    <label for="login-email">Email address</label>
+                    <div class="field-input-wrap">
+                        <p class="field-error" id="login-email-error" role="alert"></p>
+                        <div class="input-container">
+                            <span
+                                class="icon icon-mail input-icon"
+                                aria-hidden="true"
+                            ></span>
+                            <input
+                                placeholder="your@gmail.com"
+                                type="email"
+                                name="email"
+                                id="login-email"
+                                autocomplete="email"
+                                required
+                            >
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label for="login-password">Password</label>
+                    <div class="field-input-wrap">
+                        <p class="field-error" id="login-password-error" role="alert"></p>
+                        <div class="input-container password-input">
+                            <span
+                                class="password-lock"
+                                aria-hidden="true"
+                            ></span>
+                            <input
+                                placeholder="Enter your password"
+                                type="password"
+                                name="password"
+                                id="login-password"
+                                autocomplete="current-password"
+                                required
+                            >
+                            <button
+                                class="password-toggle"
+                                type="button"
+                                aria-label="Show password"
+                                data-password-toggle="login-password"
+                            >
+                                <span
+                                    class="icon icon-eye-hidden"
+                                    aria-hidden="true"
+                                ></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-bottom">
+                    <label class="checkbox-container" for="remember-me">
+                        <input
+                            type="checkbox"
+                            name="remember"
+                            id="remember-me"
+                        >
+                        <span
+                            class="checkbox-mark"
+                            aria-hidden="true"
+                        ></span>
+                        <span>Remember me</span>
+                    </label>
+                    <button
+                        class="text-button"
+                        type="button"
                     >
-                </label>
-
-                <label>
-                    Email
-                    <input
-                        type="email"
-                        id="register-email"
-                        autocomplete="email"
-                        required
-                    >
-                </label>
-
-                <label>
-                    Password
-                    <input
-                        type="password"
-                        id="register-password"
-                        autocomplete="new-password"
-                        required
-                    >
-                </label>
-
-                <button type="submit">
-                    Register
+                        Forgot your password?
+                    </button>
+                </div>
+                <button
+                    class="primary-button"
+                    type="submit"
+                >
+                    Log in <span>→</span>
                 </button>
-
             </form>
-
-            <p id="register-message"></p>
+            <div class="separator">
+                <span>or</span>
+            </div>
+            <button
+                class="social-button"
+                type="button"
+                data-social="Microsoft"
+            >
+                <span
+                    class="icon icon-microsoft social-icon"
+                    aria-hidden="true"
+                ></span>
+                Continue with Microsoft
+            </button>
+            <button
+                class="social-button"
+                type="button"
+                data-social="Google"
+            >
+                <span
+                    class="icon icon-google social-icon"
+                    aria-hidden="true"
+                ></span>
+                Continue with Google
+            </button>
+            <p class="auth-footer">Don't have an account yet? <a href="./register.html">Sign up</a></p>
         </section>
-
-
-        <section>
-            <h1>Login</h1>
-
-            <form id="login-form">
-
-                <label>
-                    Email
-                    <input
-                        type="email"
-                        id="login-email"
-                        autocomplete="username"
-                        required
-                    >
-                </label>
-
-                <label>
-                    Password
-                    <input
-                        type="password"
-                        id="login-password"
-                        autocomplete="current-password"
-                        required
-                    >
-                </label>
-
-                <button type="submit">
-                    Login
-                </button>
-
-            </form>
-
-            <p id="login-message"></p>
-        </section>
-
     </main>
-
-
-    <script type="module">
-        import { authApi } from './js/api/index.js';
-
-
-        const registerForm = document.querySelector('#register-form');
-        const registerMessage = document.querySelector('#register-message');
-
-        registerForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-
-            const username =
-                document.querySelector('#register-username').value;
-
-            const email =
-                document.querySelector('#register-email').value;
-
-            const password =
-                document.querySelector('#register-password').value;
-
-            try {
-                const result = await authApi.register(
-                    username,
-                    email,
-                    password
-                );
-
-                registerMessage.textContent =
-                    result.message ?? 'Registration complete';
-
-                registerForm.reset();
-
-            } catch (error) {
-                registerMessage.textContent =
-                    error.message;
-            }
-        });
-
-
-        const loginForm = document.querySelector('#login-form');
-        const loginMessage = document.querySelector('#login-message');
-
-        loginForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-
-            const email =
-                document.querySelector('#login-email').value;
-
-            const password =
-                document.querySelector('#login-password').value;
-
-            try {
-                const result = await authApi.login(
-                    email,
-                    password
-                );
-
-                loginMessage.textContent =
-                    `Logged in as ${result.user.username}`;
-
-            } catch (error) {
-                loginMessage.textContent =
-                    error.message;
-            }
-        });
-    </script>
-
+    <div
+        class="service-modal"
+        id="service-modal"
+        hidden
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="service-title"
+    >
+        <div class="modal-panel">
+            <div class="error-symbol-area">
+                <span class="error-symbol" aria-hidden="true">
+                    <span class="error-symbol__pulse"></span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--top-left">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--top-right">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--bottom-left">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--bottom-right">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__mask"></span>
+                    <span class="icon icon-exclamation error-symbol__icon"></span>
+                </span>
+            </div>
+            <h2 id="service-title">Services not connected</h2>
+            <p>Google and Microsoft sign-in are not connected yet. For now, use your email address and password, or try again later.</p>
+            <div class="service-provider-row" aria-hidden="true">
+                <span class="service-provider-card"><span class="icon icon-google"></span></span>
+                <span class="icon icon-link-break service-link-break"></span>
+                <span class="service-provider-card"><span class="icon icon-microsoft"></span></span>
+            </div>
+            <button
+                class="primary-button"
+                type="button"
+                data-modal-close
+            >
+                Understood
+            </button>
+        </div>
+    </div>
+    <div
+        class="server-error-modal"
+        id="server-error-modal"
+        hidden
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="server-error-title"
+    >
+        <div class="server-error-modal__panel">
+            <div class="error-symbol-area">
+                <span class="error-symbol" aria-hidden="true">
+                    <span class="error-symbol__pulse"></span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--top-left">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--top-right">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--bottom-left">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--bottom-right">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__mask"></span>
+                    <span class="icon icon-exclamation error-symbol__icon"></span>
+                </span>
+            </div>
+            <h2 id="server-error-title">Connection failed</h2>
+            <p>Something went wrong while connecting to the server. Please try again later.</p>
+            <button
+                class="primary-button"
+                type="button"
+                data-server-error-close
+            >
+                Understood
+            </button>
+        </div>
+    </div>
+    <div
+        class="service-modal success-modal"
+        id="login-success-modal"
+        hidden
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="login-success-title"
+    >
+        <div class="modal-panel">
+            <div class="error-symbol-area">
+                <span class="error-symbol" aria-hidden="true">
+                    <span class="error-symbol__pulse"></span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--top-left">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--top-right">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--bottom-left">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--bottom-right">
+                        <span class="error-symbol__ray"></span>
+                    </span>
+                    <span class="error-symbol__mask"></span>
+                    <span class="icon icon-check error-symbol__icon"></span>
+                </span>
+            </div>
+            <h2 id="login-success-title">Login successful</h2>
+            <p>You are now logged in.</p>
+            <button
+                class="primary-button"
+                type="button"
+                data-login-success-close
+            >
+                Continue
+            </button>
+        </div>
+    </div>
+    <nav>
+        <a href="./index.html">
+            <span class="icon icon-home"></span>
+            Home
+        </a>
+        <a href="./tasks.html">
+            <span class="icon icon-tasks"></span>
+            Tasks
+        </a>
+        <a href="./rewards.html">
+            <span class="icon icon-present"></span>
+            Rewards
+        </a>
+        <a href="./activity.html">
+            <span class="icon icon-activity"></span>
+            Activity
+        </a>
+        <a href="./profile.html">
+            <span class="icon icon-profile-bg current"></span>
+            Profile
+        </a>
+    </nav>
+    <script type="module" src="./js/auth/login.js"></script>
 </body>
-
 </html>
