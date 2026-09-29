@@ -1,0 +1,153 @@
+.tasks-page {
+    padding-bottom: 90px;
+}
+
+.tasks-page > .brand {
+    padding: 15px;
+}
+
+.tasks-main {
+    width: 90%;
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+.tasks-header,
+.create-panel,
+.task-section {
+    margin-bottom: 30px;
+}
+
+.create-panel h2,
+.task-section h2 {
+    margin-bottom: 15px;
+}
+
+.task-tools {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.task-tools input,
+.task-tools select {
+    padding: 8px;
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    font: inherit;
+}
+
+.task-tools input {
+    flex: 1;
+}
+
+.task-filters {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.task-filters button {
+    padding: 6px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    background-color: var(--color-surface);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+}
+
+.task-filters button.active {
+    border-color: var(--color-brand-primary);
+    background-color: var(--color-brand-light);
+    color: var(--color-brand-dark);
+}
+
+.task-count {
+    margin-bottom: 8px;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.task-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.task-form label span {
+    color: var(--color-text-muted);
+}
+
+.task-form input,
+.task-form textarea {
+    padding: 8px;
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    font: inherit;
+}
+
+.task-form textarea {
+    min-height: 70px;
+}
+
+.task-form button,
+.task-card__button {
+    width: fit-content;
+    padding: 8px 12px;
+    border: 1px solid var(--color-brand-dark);
+    border-radius: 3px;
+    background-color: var(--color-brand-primary);
+    color: white;
+    cursor: pointer;
+}
+
+#form-message,
+.task-message {
+    color: var(--color-text-secondary);
+}
+
+.task-message:empty {
+    display: none;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-card {
+    padding: 12px;
+    border: 1px solid var(--color-border);
+}
+
+.task-card__description,
+.task-detail {
+    margin: 5px 0;
+}
+
+.task-card__button {
+    margin-top: 8px;
+}
+
+@media (min-width: 900px) {
+    .tasks-page {
+        padding-bottom: 0;
+    }
+}
+
+@media (max-width: 500px) {
+    .task-tools {
+        flex-direction: column;
+    }
+
+    .task-filters {
+        flex-wrap: wrap;
+    }
+}
