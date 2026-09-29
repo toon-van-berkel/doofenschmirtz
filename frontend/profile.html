@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile</title>
+</head>
+
+<body>
+
+<main>
+    <h1>My Profile</h1>
+    <section>
+        <h2>Account Details</h2>
+        <div>
+            <p>Username:</p>
+            <p id="username"></p>
+        </div>
+
+        <div>
+            <p>Email address:</p>
+            <p id="masked-email"></p>
+        </div>
+    </section>
+
+    <section>
+        <h2>View full email address</h2>
+        <p> Enter your password to view full email address.</p>
+
+        <form id="reveal-email-form">
+            <div>
+                <label for="current-password">Current password:</label>
+                <input
+                        type="password"
+                        id="current-password"
+                        name="current-password"
+                        autocomplete="current-password"
+                        required
+                >
+            </div>
+
+            <button type="submit">
+                View email address
+            </button>
+        </form>
+
+        <p id="error-message" role="alert" hidden></p>
+
+        <div id="full-email-container" hidden>
+            <p>Full email address:</p>
+            <p id="full-email"></p>
+        </div>
+    </section>
+</main>
+<script src="js/profile.js"></script>
+</body>
+</html>
