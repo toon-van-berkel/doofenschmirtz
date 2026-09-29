@@ -12,7 +12,7 @@ body.auth-page {
     margin: auto;
     padding: 20px 20px calc(78px + 24px + env(safe-area-inset-bottom));
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     background: #fffffff2;
 }
 
@@ -21,6 +21,20 @@ body.auth-page {
     font-size: clamp(2rem, 8vw, 3rem);
     line-height: 1.05;
     letter-spacing: -1.5px;
+}
+
+.auth-poster {
+    display: none;
+    margin: 0;
+}
+
+.auth-poster img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 28px;
 }
 
 .auth-intro {
@@ -49,6 +63,68 @@ body.auth-page {
         padding: 30px 48px calc(42px + 78px + 24px + env(safe-area-inset-bottom));
         border-radius: 36px;
         box-shadow: 0 20px 70px #6552a226;
+    }
+}
+
+@media (min-width: 900px) {
+    body.auth-page {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        overflow-y: auto;
+    }
+
+    body.auth-page .auth-card {
+        width: 100%;
+        min-height: 100svh;
+        height: auto;
+        margin: 0;
+        padding: 48px;
+        display: grid;
+        grid-template-columns: minmax(180px, 0.85fr) minmax(300px, 1fr);
+        gap: clamp(24px, 4vw, 72px);
+        align-items: start;
+        justify-content: center;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    body.auth-page .auth-card > .brand {
+        flex: 0 0 auto;
+    }
+
+    body.auth-page .auth-poster {
+        display: block;
+        grid-column: 1;
+        grid-row: 1;
+        width: min(100%, 440px);
+        height: auto;
+        align-self: stretch;
+        justify-self: end;
+    }
+
+    body.auth-page .auth-content {
+        grid-column: 2;
+        grid-row: 1;
+        width: min(100%, 440px);
+        justify-self: start;
+    }
+
+}
+
+@media (min-width: 1200px) {
+    body.auth-page .auth-card {
+        grid-template-columns: minmax(360px, 520px);
+        justify-content: center;
+    }
+
+    body.auth-page .auth-poster {
+        display: none;
+    }
+
+    body.auth-page .auth-content {
+        grid-column: 1;
+        justify-self: stretch;
     }
 }
 

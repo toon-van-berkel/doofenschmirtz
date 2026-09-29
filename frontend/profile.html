@@ -11,7 +11,10 @@
     <link rel="stylesheet" href="./css/base/brand.css">
     <link rel="stylesheet" href="./css/components/nav.css">
 </head>
-<body>
+<body class="is-loading">
+    <div class="page-loader" role="status" aria-label="Page loading">
+        <img class="page-loader__logo" src="./assets/favicon.svg" alt="">
+    </div>
     <main>
         <h1>Profile</h1>
         <p>Hello <span id="profile-username"></span></p>
@@ -39,6 +42,8 @@
             Profile
         </a>
     </nav>
-    <script type="module" src="./js/profile.js"></script>
+    <script type="module" src="./js/components/loader.js"></script>
+    <script type="module" src="./js/components/nav.js"></script>
+    <script type="module" src="./js/pages/profile.js"></script>
 </body>
 </html>

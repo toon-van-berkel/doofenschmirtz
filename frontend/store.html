@@ -6,65 +6,63 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Store</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="css/store.css">
+    <link rel="stylesheet" href="./css/base/common.css">
+    <link rel="stylesheet" href="./css/base/colors.css">
+    <link rel="stylesheet" href="./css/base/font.css">
+    <link rel="stylesheet" href="./css/base/icon.css">
+    <link rel="stylesheet" href="./css/base/brand.css">
+    <link rel="stylesheet" href="./css/components/nav.css">
 </head>
 <body>
 <main>
-    <header>
-        <strong>Welcome, <span id="username"></span>! You currently have [x] points.</strong>
-        <a href="#">profile</a>
-    </header>
+    <div class="content-container">
+        <header>
+            <strong class="welcome">Welcome, <span id="username"></span>! You currently have 80 points.</strong>
+            <p>Welcome to the store! Here you can spend the points you earned through completing tasks on rewards. These
+                rewards will be changed regularly based on demand and availability.</p>
+        </header>
 
-    <section>
-        <h1>Store</h1>
-        <p>Welcome to the store! Here you can spend the points you earned through completing tasks on rewards. These
-            rewards will be changed regularly based on demand and availability.</p>
-    </section>
-    <section class="item-container">
-        <div class="img-summary">
-            <img src="#" alt="icon">
-            <div class="summary">
-                <h2>[Name Reward]</h2>
-                <p>[Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad architecto commodi consequuntur eius
-                    est ex
-                    excepturi facere in libero modi necessitatibus nemo neque nobis, numquam odio officiis repellendus
-                    saepe
-                    sint?]</p>
+        <section class="item-container">
+            <div class="img-summary">
+                <!-- <img src="#" alt="icon"> -->
+                <div class="summary">
+                    <h2>Maand Vrij OV</h2>
+                    <p>Een maand vrij reizen met het openbaar vervoer! Dit telt voor RET en NS voor het hele land.</p>
+                </div>
             </div>
-        </div>
-        <strong>[price and duration]</strong>
-        <a href="#" class="button">Buy reward</a>
-    </section>
-    <section class="item-container">
-        <div class="img-summary">
-            <img src="#" alt="icon">
-            <div class="summary">
-                <h2>[Name Reward]</h2>
-                <p>[Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad architecto commodi consequuntur eius
-                    est ex
-                    excepturi facere in libero modi necessitatibus nemo neque nobis, numquam odio officiis repellendus
-                    saepe
-                    sint?]</p>
+            <strong>100 points || 1 month</strong>
+            <a href="#" class="button">Buy reward</a>
+        </section>
+        <section class="item-container">
+            <div class="img-summary">
+                <!-- <img src="#" alt="icon"> -->
+                <div class="summary">
+                    <h2>Bioscoopbon</h2>
+                    <p>Gezellig samen met iemand naar de bioscoop, haal nu de waardebon t.w.v. 25 euro!</p>
+                </div>
             </div>
-        </div>
-        <strong>[price and duration]</strong>
-        <a href="#" class="button">Buy reward</a>
-    </section>
-    <section class="item-container">
-        <div class="img-summary">
-            <img src="#" alt="icon">
-            <div class="summary">
-                <h2>[Name Reward]</h2>
-                <p>[Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad architecto commodi consequuntur eius
-                    est ex
-                    excepturi facere in libero modi necessitatibus nemo neque nobis, numquam odio officiis repellendus
-                    saepe
-                    sint?]</p>
+            <strong>60 points || n.v.t.</strong>
+            <a href="#" class="button">Buy reward</a>
+        </section>
+        <section class="item-container">
+            <div class="img-summary">
+                <!-- <img src="#" alt="icon"> -->
+                <div class="summary">
+                    <h2>Discord Nitro</h2>
+                    <p>profile go brrrrrr emoji go brrrrrrrrrr</p>
+                </div>
             </div>
+            <strong>30 points || 1 month</strong>
+            <a href="#" class="button">Buy reward</a>
+        </section>
+    </div>
+    <script type="module" src="./js/store.js"></script>
+    <div class="store-lock" role="dialog" aria-modal="true" aria-labelledby="store-lock-title">
+        <div class="store-lock__modal">
+            <h2 id="store-lock-title">Rewards coming soon</h2>
         </div>
-        <strong>[price and duration]</strong>
-        <a href="#" class="button">Buy reward</a>
-    </section>
+    </div>
 </main>
 <nav>
     <a href="/">
@@ -92,6 +90,5 @@
         Profile
     </a>
 </nav>
-<script type="module" src="./js/store.js"></script>
 </body>
 </html>

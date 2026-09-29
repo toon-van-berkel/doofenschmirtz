@@ -161,6 +161,17 @@ require_once __DIR__ . '/../src/Router.php';
 require_once __DIR__ . '/../src/Services/AuthService.php';
 require_once __DIR__ . '/../src/Controllers/AuthController.php';
 require_once __DIR__ . '/../src/Controllers/HealthController.php';
+require_once __DIR__ . '/../src/Auth.php';
+require_once __DIR__ . '/../src/Services/TaskService.php';
+require_once __DIR__ . '/../src/Services/SubmissionService.php';
+require_once __DIR__ . '/../src/Services/VerificationService.php';
+require_once __DIR__ . '/../src/Services/PointsService.php';
+require_once __DIR__ . '/../src/Services/AdminService.php';
+require_once __DIR__ . '/../src/Controllers/TaskController.php';
+require_once __DIR__ . '/../src/Controllers/SubmissionController.php';
+require_once __DIR__ . '/../src/Controllers/VerificationController.php';
+require_once __DIR__ . '/../src/Controllers/ActivityController.php';
+require_once __DIR__ . '/../src/Controllers/AdminController.php';
 
 
 // --------------------------------------------------
