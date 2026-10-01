@@ -2,11 +2,9 @@
     display: grid;
     gap: 4px;
 }
-
 .field-input-wrap {
     position: relative;
 }
-
 .auth-form > label {
     color: #272844;
     font-weight: var(--font-medium);
@@ -34,6 +32,34 @@
 }
 
 .input-container input::placeholder {
+    color: #9898bd;
+}
+
+/* Report controls use the same field container as the email input, but their
+   native elements also need to fill and inherit the shared form styling. */
+.report-page .input-container select,
+.report-page .input-container textarea {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #272844;
+    font: inherit;
+}
+
+.report-page .input-container select {
+    min-height: 45px;
+    padding: 10px 14px;
+}
+
+.report-page .input-container textarea {
+    min-height: 135px;
+    padding: 10px 14px;
+    resize: vertical;
+}
+
+.report-page .input-container textarea::placeholder {
     color: #9898bd;
 }
 

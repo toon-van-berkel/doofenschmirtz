@@ -73,6 +73,22 @@ CREATE TABLE verifications (
     CONSTRAINT fk_verifications_verifier FOREIGN KEY (verifier_id) REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE appeals (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    submission_id INT UNSIGNED NOT NULL,
+    requested_by INT UNSIGNED NOT NULL,
+    reason TEXT NOT NULL,
+    status VARCHAR(30) NOT NULL DEFAULT 'pending',
+    reviewed_by INT UNSIGNED NULL,
+    decision VARCHAR(30) NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    reviewed_at DATETIME NULL,
+    UNIQUE KEY uq_appeals_submission (submission_id),
+    CONSTRAINT fk_appeals_submission FOREIGN KEY (submission_id) REFERENCES submissions(id) ON DELETE CASCADE,
+    CONSTRAINT fk_appeals_requested_by FOREIGN KEY (requested_by) REFERENCES users(id),
+    CONSTRAINT fk_appeals_reviewed_by FOREIGN KEY (reviewed_by) REFERENCES users(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE point_transactions (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id INT UNSIGNED NOT NULL,

@@ -8,9 +8,13 @@ const isLocal =
     window.location.hostname === 'localhost' ||
     window.location.hostname === '127.0.0.1';
 
-const API_URL = isLocal
-    ? 'https://doofenschmirtz.test'
+export const API_URL = isLocal
+    ? 'http://127.0.0.1:8081'
     : '/api';
+
+export function assetUrl(path) {
+    return `${API_URL}/${String(path).replace(/^\/+/, '')}`;
+}
 
 
 /*
@@ -26,7 +30,7 @@ async function request(path, options = {}) {
 
         ...options,
 
-        headers: {
+        headers: options.body instanceof FormData ? { ...options.headers } : {
             'Content-Type': 'application/json',
             ...options.headers
         }
@@ -56,6 +60,10 @@ export const api = {
             method: 'POST',
             body: JSON.stringify(body)
         });
+    },
+
+    postForm(path, formData) {
+        return request(path, { method: 'POST', body: formData });
     },
 
     put(path, body = {}) {

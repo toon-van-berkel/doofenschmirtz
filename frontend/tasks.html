@@ -1,23 +1,108 @@
-<!doctype html>
+<!--
+    --- Team integration: Tasks ---
+    Original feature author: Liam Plokkaar
+    Source branch: taskpage
+    Original task implementation preserved.
+    Integration by Toon van Berkel: connected to the current application structure.
+-->
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tasks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks | Doofenshmirtz</title>
+    <link rel="shortcut icon" href="./assets/favicon-bg.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/base/common.css">
+    <link rel="stylesheet" href="./css/base/colors.css">
+    <link rel="stylesheet" href="./css/base/font.css">
+    <link rel="stylesheet" href="./css/base/icon.css">
+    <link rel="stylesheet" href="./css/base/brand.css">
+    <link rel="stylesheet" href="./css/components/nav.css">
+    <link rel="stylesheet" href="./css/tasks/task.css?v=4">
 </head>
-<body>
-    <main>
-        <h1>Tasks</h1>
-        <p>Task UI placeholder.</p>
-        <!--
-        TODO [TASK LIST]: Use tasksApi.list() / GET /api/tasks after authentication.
-        Render loading, empty, and error states. Each item should eventually show title, approved reward,
-        location, available task image metadata, and an action to view details.
-        TODO [TASK CREATION]: The future form sends title, description, completion_criteria, optional location,
-        and coordinates to POST /api/tasks/create. The user does not choose points; new tasks start pending.
-        Task images will eventually use multipart upload and be stored as server paths/metadata, not BLOBs.
-        -->
+<body class="tasks-page is-loading">
+    <div class="page-loader" role="status" aria-label="Page loading">
+        <img class="page-loader__logo" src="./assets/favicon.svg" alt="">
+    </div>
+
+    <a href="./index.html" class="brand">
+        <img class="brand-icon" src="./assets/favicon.svg" alt="">
+        <span class="brand__title-container">
+            <span class="brand__title-bold">Doofenshmirtz</span>
+            <span class="brand__title-description">Clean control. Clear progress.</span>
+        </span>
+    </a>
+
+    <main class="tasks-main">
+        <p><a href="./submissions-review.html">Review submissions and verifications</a> · <a href="./my-submissions.html">My submissions</a></p>
+        <header class="tasks-header">
+            <h1>Tasks</h1>
+        </header>
+        <section class="task-section" aria-labelledby="open-task-title">
+            <h2 id="open-task-title">Open tasks</h2>
+            <div class="task-tools">
+                <input id="task-search" type="search" placeholder="Search tasks..." aria-label="Search tasks">
+                <select id="task-sort" aria-label="Sort tasks">
+                    <option value="newest">Newest first</option>
+                    <option value="points-high">Most points</option>
+                    <option value="points-low">Least points</option>
+                </select>
+            </div>
+            <div class="task-filters" aria-label="Task filters">
+                <button class="active" type="button" data-filter="all">All</button>
+                <button type="button" data-filter="location">With location</button>
+                <button type="button" data-filter="high-points">100+ points</button>
+            </div>
+            <p id="task-count" class="task-count"></p>
+            <p id="task-message" class="task-message" role="status">Loading tasks...</p>
+            <div id="task-list" class="task-list"></div>
+        </section>
+
+        <section class="create-panel" aria-labelledby="create-task-title">
+            <h2 id="create-task-title">Create a task</h2>
+
+            <form id="task-form" class="task-form" enctype="multipart/form-data">
+                <label>
+                    Title
+                    <input name="title" placeholder="What needs to be done?" maxlength="255" required>
+                </label>
+                <label>
+                    Description
+                    <textarea name="description" placeholder="Explain the task" required></textarea>
+                </label>
+                <label>
+                    Completion criteria
+                    <textarea name="completion_criteria" placeholder="When is the task complete?" required></textarea>
+                </label>
+                <label>
+                    Location <span>(optional)</span>
+                    <input name="location_description" placeholder="For example: school library" maxlength="500">
+                </label>
+                <label>
+                    Latitude is captured from your browser when the task is created.
+                    <input name="latitude" type="hidden">
+                </label>
+                <label>
+                    <input name="longitude" type="hidden">
+                </label>
+                <label>Task images <input name="task_images[]" type="file" accept="image/jpeg,image/png,image/webp" multiple></label>
+                <button type="submit">Create task</button>
+                <p id="location-status" role="status">Location will be requested when you create the task.</p>
+                <p id="form-message" role="status"></p>
+            </form>
+        </section>
     </main>
+
+    <nav>
+        <a href="./index.html"><span class="icon icon-home"></span>Home</a>
+        <a href="./tasks.html" aria-current="page"><span class="icon icon-tasks-bg current"></span>Tasks</a>
+        <a href="./store.html"><span class="icon icon-present"></span>Rewards</a>
+        <a href="./activity.html"><span class="icon icon-activity"></span>Activity</a>
+        <a href="./profile.html"><span class="icon icon-profile"></span>Profile</a>
+    </nav>
+
+    <script type="module" src="./js/components/loader.js"></script>
+    <script type="module" src="./js/components/nav.js"></script>
     <script type="module" src="./js/pages/tasks.js"></script>
 </body>
 </html>

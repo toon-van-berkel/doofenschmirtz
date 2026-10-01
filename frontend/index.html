@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="./css/base/icon.css">
     <link rel="stylesheet" href="./css/base/brand.css">
     <link rel="stylesheet" href="./css/components/nav.css">
+    <!--
+        --- Team integration: Homepage ---
+        Original feature author: Nat
+        Source branch: feat/full-homepage
+        Original homepage feature preserved where compatible.
+        Integration by Toon van Berkel:
+        - adapted to the current development structure
+        - retained the current shared stylesheet/API structure
+    -->
+    <link rel="stylesheet" href="./css/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -20,10 +30,10 @@
     <h1>Hallo <span id="username"></span></h1>
     <a href="./index.html" class="brand">
         <img class="brand-icon" src="./assets/favicon.svg" alt="">
-        <p class="brand__title-container">
+        <span class="brand__title-container">
             <span class="brand__title-bold">Doofenshmirtz</span>
             <span class="brand__title-description">Clean control. Clear progress.</span>
-        </p>
+        </span>
     </a>
 
     <!-- <a href="" class="header">
@@ -35,17 +45,17 @@
     <main>
         <div class="current-points">
             <h2>
-                You have <?= $points ?? 0 ?> points.
+                You have <span id="points-balance">0</span> points.
             </h2>
         </div>
 
         
         <section class="main-card"> 
-            <a href="my-quests.html">
+            <a href="tasks.html">
                 My Quests
             </a>
 
-            <a href="daily-quest.html">
+            <a href="tasks.html">
                 Daily Quest
             </a>
         </section>
@@ -58,14 +68,14 @@
 
     <nav>
         <a href="./index.html">
-            <span class="icon icon-home"></span>
+            <span class="icon icon-home-bg current"></span>
             Home
         </a>
         <a href="./tasks.html">
             <span class="icon icon-tasks"></span>
             Tasks
         </a>
-        <a href="./rewards.html">
+        <a href="./store.html">
             <span class="icon icon-present"></span>
             Rewards
         </a>
@@ -74,13 +84,14 @@
             Activity
         </a>
         <a href="./profile.html">
-            <span class="icon icon-profile-bg current"></span>
+            <span class="icon icon-profile"></span>
             Profile
         </a>
     </nav>
-    
+
     <!-- Script for backend API calls -->
     <script type="module" src="./js/components/loader.js"></script>
     <script type="module" src="./js/components/nav.js"></script>
+    <script type="module" src="./js/pages/home.js"></script>
     <script type="module" src="./js/pages/home.js"></script>
 </body>

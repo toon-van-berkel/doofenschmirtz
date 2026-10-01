@@ -12,6 +12,7 @@ import {
     updateSubmitButton
 } from '../../utils/ui.js';
 import { getPasswordRequirementStates, validateEmail, validatePassword } from '../../utils/validation.js';
+import { showApiError } from '../../components/feedback.js';
 
 const registerForm = document.querySelector('#register-form');
 const terms = document.querySelector('#terms');
@@ -124,10 +125,12 @@ registerForm.addEventListener('submit', async (event) => {
             registerForm.password.value
         );
         registerForm.reset();
+        // Preserve the original registration success modal and its login redirect.
         showSuccessModal();
     } catch (error) {
-        if (!error.status || error.status >= 500) {
-            showServerError();
-        }
+        showApiError(error, {
+            title: 'Account could not be created',
+            fallbackMessage: 'Please check the information and try again.'
+        });
     }
 });

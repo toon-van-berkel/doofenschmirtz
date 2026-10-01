@@ -4,10 +4,10 @@ const sidebar = document.querySelector('nav');
 if (sidebar) {
     const storageKey = 'doofenschmirtz-sidebar';
     const savedState = JSON.parse(localStorage.getItem(storageKey) || '{}');
-    const minWidth = 220;
-    const maxWidth = 280;
+    const minWidth = 280;
+    const maxWidth = 400;
     const collapsedWidth = 76;
-    const defaultWidth = 248;
+    const defaultWidth = 320;
 
     sidebar.setAttribute('aria-label', 'Main navigation');
     sidebar.insertAdjacentHTML('afterbegin', `

@@ -2,53 +2,92 @@
 
 class AdminController
 {
+    private AdminService $service;
+
     public function __construct()
     {
         $this->service = new AdminService(Database::connection());
     }
 
-    private AdminService $service;
-
     public function index(): void
     {
-        // TODO [ADMIN] (GET /admin): Require active role=admin and return aggregate moderation counts/queue summaries only.
-        $this->notImplemented();
+        // Only an active admin may access moderation data.
+        $adminId = $this->adminId();
+        if ($adminId === null) {
+            return;
+        }
+        $this->respond(200, true, null, ['tasks' => $this->service->listTasks()]);
     }
 
     public function tasks(): void
     {
-        // TODO [ADMIN] (GET /admin/tasks): Require role=admin; accept status/filter/pagination query parameters and call listTasks().
-        // Return moderation-safe task summaries, including pending/rejected/open states as appropriate.
-        $this->notImplemented();
+        // Return pending tasks for admin moderation without changing state or awarding points.
+        // TODO [OPTIONAL]: Add status filters and pagination for larger queues.
+        $adminId = $this->adminId();
+        if ($adminId === null) {
+            return;
+        }
+        $this->respond(200, true, null, ['tasks' => $this->service->listTasks()]);
     }
 
     public function taskView(): void
     {
-        // TODO [ADMIN] (GET /admin/tasks/view): Require role=admin and integer task_id query input.
-        // Call AdminService::getTask() and return creator, task_images, submissions, and moderation state.
-        $this->notImplemented();
+        // Return the selected task and its moderation-safe details to an active admin.
+        $adminId = $this->adminId();
+        if ($adminId === null) {
+            return;
+        }
+        $taskId = filter_input(INPUT_GET, 'task_id', FILTER_VALIDATE_INT);
+        $task = $taskId ? $this->service->getTask($taskId) : null;
+        if (!$task) { $this->respond(404, false, 'Task not found'); return; }
+        $this->respond(200, true, null, ['task' => $task]);
     }
 
     public function approveTask(): void
     {
-        // TODO [ADMIN] (POST /admin/tasks/approve): Require role=admin and accept task_id in the JSON body.
-        // Approve only pending tasks: set task.points to the approved admin-defined reward and status=open.
-        // Award creator task_created +20 exactly once in the same transaction; return 409 for non-pending/already-reviewed tasks.
-        $this->notImplemented();
+        // Admin approval opens the task, assigns its reward and records the creator reward atomically.
+        $adminId = $this->adminId();
+        if ($adminId === null) {
+            return;
+        }
+        $body = json_decode(file_get_contents('php://input'), true);
+        $task = $this->service->approveTask($adminId, is_array($body) ? $body : []);
+        if (!$task) { $this->respond(409, false, 'Task is not pending or input is invalid'); return; }
+        $this->respond(200, true, 'Task approved', ['task' => $task]);
     }
 
     public function rejectTask(): void
     {
-        // TODO [ADMIN] (POST /admin/tasks/reject): Require role=admin and accept task_id plus rejection reason.
-        // Reject only pending tasks, set status=rejected, preserve the reason using the available design, and award no +20.
-        // Return 409 for already-reviewed tasks and commit the moderation state atomically.
-        $this->notImplemented();
+        // Admin rejection closes moderation without opening the task or awarding points.
+        // TODO [OPTIONAL]: Persist a rejection reason if the schema later supports it.
+        $adminId = $this->adminId();
+        if ($adminId === null) {
+            return;
+        }
+        $body = json_decode(file_get_contents('php://input'), true);
+        $task = $this->service->rejectTask($adminId, is_array($body) ? $body : []);
+        if (!$task) { $this->respond(409, false, 'Task is not pending or input is invalid'); return; }
+        $this->respond(200, true, 'Task rejected', ['task' => $task]);
     }
 
-    private function notImplemented(): void
+    private function adminId(): ?int
     {
-        http_response_code(501);
+        $id = Auth::userId();
+        if ($id === null) { $this->respond(401, false, 'Not authenticated'); return null; }
+        $query = Database::connection()->prepare('SELECT status, role FROM users WHERE id = ?');
+        $query->execute([$id]);
+        $user = $query->fetch();
+        if (!$user || $user['status'] !== 'active') { $this->respond(403, false, 'Account is not active'); return null; }
+        if ($user['role'] !== 'admin') { $this->respond(403, false, 'Admin access required'); return null; }
+        return $id;
+    }
+
+    private function respond(int $status, bool $success, ?string $message, array $data = []): void
+    {
+        http_response_code($status);
         header('Content-Type: application/json');
-        echo json_encode(['success' => false, 'message' => 'Not implemented']);
+        $response = ['success' => $success];
+        if ($message !== null) $response['message'] = $message;
+        echo json_encode([...$response, ...$data]);
     }
 }

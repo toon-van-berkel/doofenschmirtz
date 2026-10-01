@@ -1,0 +1,44 @@
+<!-- Core flow integration by Toon van Berkel: task detail and submission entrypoint around Liam's task API. -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task detail | Doofenshmirtz</title>
+    <link rel="stylesheet" href="./css/base/common.css">
+    <link rel="stylesheet" href="./css/base/colors.css">
+    <link rel="stylesheet" href="./css/base/font.css">
+    <link rel="stylesheet" href="./css/base/icon.css">
+    <link rel="stylesheet" href="./css/base/brand.css">
+    <link rel="stylesheet" href="./css/components/nav.css">
+    <link rel="stylesheet" href="./css/tasks/task.css?v=4">
+</head>
+<body class="tasks-page is-loading">
+    <a href="./index.html" class="brand">
+        <img class="brand-icon" src="./assets/favicon.svg" alt="">
+        <span class="brand__title-container">
+            <span class="brand__title-bold">Doofenshmirtz</span>
+            <span class="brand__title-description">Clean control. Clear progress.</span>
+        </span>
+    </a>
+    <main class="tasks-main">
+        <p id="detail-message">Loading task...</p>
+        <article id="task-detail"></article>
+        <form id="submission-form" enctype="multipart/form-data" hidden>
+            <h2>Submit evidence</h2>
+            <textarea name="evidence_description" required placeholder="Describe how you completed the task"></textarea>
+            <input name="evidence_images[]" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+    <nav>
+        <a href="./index.html"><span class="icon icon-home"></span>Home</a>
+        <a href="./tasks.html" aria-current="page"><span class="icon icon-tasks current"></span>Tasks</a>
+        <a href="./store.html"><span class="icon icon-present"></span>Rewards</a>
+        <a href="./activity.html"><span class="icon icon-activity"></span>Activity</a>
+        <a href="./profile.html"><span class="icon icon-profile-bg"></span>Profile</a>
+    </nav>
+    <script type="module" src="./js/components/nav.js"></script>
+    <script type="module" src="./js/pages/task-detail.js"></script>
+</body>
+</html>

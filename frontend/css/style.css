@@ -1,5 +1,4 @@
 * {
-    background-color: #f8fafb;
     font-family: inter, sans-serif;
     margin: 0;
     padding: 0;
@@ -28,7 +27,6 @@ h1, h2 {
 
 .greeting, .greeting h1 {
     display: flex;
-    background-color: #FBFBFB;
     flex: 1;
     width: 50px;
     align-items: center;
@@ -79,7 +77,6 @@ main {
 }
 
 .main-card a:hover, .store-section a:hover {
-    background-color: #fbfbfb;
     color: #796AAC;
 }
 

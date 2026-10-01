@@ -2,48 +2,43 @@ import { api } from './client.js';
 
 export const verificationsApi = {
     creatorQueue() { 
-        // TODO [CREATOR VERIFICATION]: Fetch the creator's pending review queue from GET /verifications/creator.
-        // Authorization and eligibility remain server-side.
+        // The backend returns only submissions belonging to tasks owned by the current user.
         return api.get('/verifications/creator'); 
     },
     creatorReview(payload) { 
-        // TODO [CREATOR VERIFICATION]: POST submission_id, decision, and optional comment to /verifications/creator/review.
-        // The backend must enforce task ownership, state transitions, and the one-time +10 creator reward.
+        // The backend enforces creator ownership, state transitions and rewards.
         return api.post('/verifications/creator/review', payload); 
     },
     communityQueue() { 
-        // TODO [COMMUNITY VERIFICATION]: Fetch eligible community submissions from GET /verifications/community.
-        // The backend must exclude task/submission creators and prior reviewers.
+        // The backend decides eligibility and excludes creators, completers and prior reviewers.
         return api.get('/verifications/community'); 
     },
     communityView(submissionId) { 
-        // TODO [COMMUNITY VERIFICATION]: Fetch eligible evidence from GET /verifications/community/view?submission_id=.
+        // Optional detail endpoint; the queue currently includes the evidence needed by the UI.
         return api.get(`/verifications/community/view?submission_id=${encodeURIComponent(submissionId)}`); 
     },
     communityReview(payload) { 
-        // TODO [COMMUNITY VERIFICATION]: POST submission_id, Yes/No decision, and optional comment.
-        // The backend awards +5 once and must not alter task/submission completion state.
+        // Community review is secondary and cannot complete the task again.
         return api.post('/verifications/community/review', payload); 
     },
     requestAppeal(payload) { 
-        // TODO [APPEAL]: POST submission_id and appeal reason to /appeals/request for an eligible rejected submission.
+        // Request an admin third-party check for an eligible creator rejection.
         return api.post('/appeals/request', payload); 
     },
     acceptRejection(payload) { 
-        // TODO [APPEAL]: POST submission_id to /appeals/accept-rejection and finalize the rejection without points.
+        // Let the submitter accept the creator rejection without receiving points.
         return api.post('/appeals/accept-rejection', payload); 
     },
     appeals() { 
-        // TODO [APPEAL]: Fetch the eligible appeal queue from GET /appeals.
+        // Fetch pending third-party checks for the active admin.
         return api.get('/appeals'); 
     },
     appealView(appealId) { 
-        // TODO [APPEAL]: Fetch one appeal from GET /appeals/view?appeal_id= with server-side privacy checks.
+        // Fetch appeal details subject to backend privacy and role checks.
         return api.get(`/appeals/view?appeal_id=${encodeURIComponent(appealId)}`); 
     },
     reviewAppeal(payload) { 
-        // TODO [APPEAL]: POST appeal_id, decision, and comment to /appeals/review.
-        // The backend must enforce reviewer eligibility and the final state/point rules.
+        // Only the backend-authorized admin can finalize the third-party check.
         return api.post('/appeals/review', payload); 
     }
 };

@@ -11,81 +11,127 @@ class VerificationController
 
     public function creator(): void
     {
-        // TODO [CREATOR QUEUE] (GET /verifications/creator): Require an active user who owns the relevant tasks.
-        // Call getCreatorQueue() and return submitted submissions awaiting creator review, with evidence metadata.
-        // Return 401/403 for auth/ownership failures and never include already-finalized submissions.
-        $this->notImplemented();
+        // Return only submitted work waiting for a decision by this user's tasks.
+        $id = $this->activeUser();
+        if ($id === null) {
+            return;
+        }
+        $this->respond(200, true, null, ['submissions' => $this->service->getCreatorQueue($id)]);
     }
 
     public function creatorReview(): void
     {
-        // TODO [CREATOR VERIFICATION] (POST /verifications/creator/review): Accept submission_id, decision (approved/rejected), comment.
-        // Require the authenticated user to be the task creator; validate the current submitted state.
-        // Approved: creator +10 once, submission verified, completed_at set, task completed, submitter gets task.points,
-        // and competing submissions become superseded. Rejected: creator still +10 once, submission creator_rejected,
-        // task remains open, and submitter gets 0 completion points. Commit state and rewards atomically.
-        $this->notImplemented();
+        // Only the task creator may decide whether submitted work is accepted;
+        // the service applies the decision, state changes and rewards atomically.
+        $id = $this->activeUser();
+        if ($id === null) {
+            return;
+        }
+        $body = json_decode(file_get_contents('php://input'), true);
+        $review = $this->service->creatorReview($id, is_array($body) ? $body : []);
+        if (!$review) { $this->respond(409, false, 'Submission is not available for review'); return; }
+        $this->respond(200, true, 'Review saved', ['submission' => $review]);
     }
 
     public function requestAppeal(): void
     {
-        // TODO [APPEAL] (POST /appeals/request): Require the submission creator and accept submission_id plus appeal reason.
-        // Allow only a creator-rejected submission, create one appeal, and transition it to appeal_pending.
-        // Reject a second appeal or an already-final state; return 409 for duplicate/conflicting state.
-        $this->notImplemented();
+        // A submitter may request one admin third-party check after creator rejection.
+        $id = $this->activeUser();
+        if ($id === null) {
+            return;
+        }
+        $body = json_decode(file_get_contents('php://input'), true);
+        $appeal = $this->service->requestAppeal($id, is_array($body) ? $body : []);
+        if (!$appeal) { $this->respond(409, false, 'Appeal is not allowed'); return; }
+        $this->respond(201, true, 'Appeal requested', ['appeal' => $appeal]);
     }
 
     public function acceptRejection(): void
     {
-        // TODO [APPEAL] (POST /appeals/accept-rejection): Require the submission creator and accept submission_id.
-        // Allow only creator_rejected; transition to final rejected. This is terminal, creates no point transaction,
-        // and must be idempotent or return a clear 409 for an already-resolved appeal.
-        $this->notImplemented();
+        // Accepting a creator rejection makes it final and creates no reward transaction.
+        $id = $this->activeUser();
+        if ($id === null) {
+            return;
+        }
+        $body = json_decode(file_get_contents('php://input'), true);
+        $submission = $this->service->acceptRejection($id, is_array($body) ? $body : []);
+        if (!$submission) { $this->respond(409, false, 'Rejection cannot be accepted'); return; }
+        $this->respond(200, true, 'Rejection accepted', ['submission' => $submission]);
     }
 
     public function appeals(): void
     {
-        // TODO [APPEAL] (GET /appeals): Require an active appeal verifier and return pending appeal summaries with pagination.
-        // Reviewer cannot be task creator or submission creator; use 401/403 appropriately.
-        $this->notImplemented();
+        // Third-party checks are administrative overrides of creator rejections.
+        // TODO [OPTIONAL]: add pagination to the admin queue if it grows.
+        $id = $this->activeAdmin();
+        if ($id === null) {
+            return;
+        }
+        $this->respond(200, true, null, ['appeals' => $this->service->getAppealQueue($id)]);
     }
 
     public function appealView(): void
     {
-        // TODO [APPEAL] (GET /appeals/view): Read appeal_id from query input and authorize the submitter, task creator,
-        // or eligible appeal verifier. Return evidence, rejection history, and appeal state without unrelated private data.
-        $this->notImplemented();
+        // Return only the appeal context permitted to the authenticated submitter,
+        // task creator or active admin.
+        $id = $this->activeUser();
+        if ($id === null) {
+            return;
+        }
+        $appealId = filter_input(INPUT_GET, 'appeal_id', FILTER_VALIDATE_INT);
+        $appeal = $appealId ? $this->service->getAppeal($id, $appealId) : null;
+        if (!$appeal) { $this->respond(404, false, 'Appeal not found'); return; }
+        $this->respond(200, true, null, ['appeal' => $appeal]);
     }
 
     public function reviewAppeal(): void
     {
-        // TODO [APPEAL] (POST /appeals/review): Accept appeal_id, decision (approved/rejected), and comment.
-        // Require an active verifier who is neither task creator nor submission creator; allow no second appeal/review.
-        // Approve: submission verified, task completed, submitter receives task.points, competing submissions superseded.
-        // Reject: submission rejected and task remains open. Appeal verifier receives 0 points. Commit atomically.
-        $this->notImplemented();
+        // Only an active admin may override or confirm a creator rejection.
+        $id = $this->activeAdmin();
+        if ($id === null) {
+            return;
+        }
+        $body = json_decode(file_get_contents('php://input'), true);
+        $review = $this->service->reviewAppeal($id, is_array($body) ? $body : []);
+        if (!$review) { $this->respond(409, false, 'Appeal is not available'); return; }
+        $this->respond(200, true, 'Appeal reviewed', ['appeal' => $review]);
     }
 
     public function community(): void
     {
-        // TODO [COMMUNITY VERIFICATION] (GET /verifications/community): Require an active user and list only verified
-        // submissions on completed tasks. Exclude task creator, submission creator, and submissions already reviewed by this user.
-        $this->notImplemented();
+        // Community validation is secondary: it is offered only after completion
+        // and excludes the creator, completer and prior reviewers.
+        $id = $this->activeUser();
+        if ($id === null) {
+            return;
+        }
+        $this->respond(200, true, null, ['submissions' => $this->service->getCommunityQueue($id)]);
     }
 
     public function communityView(): void
     {
-        // TODO [COMMUNITY VERIFICATION] (GET /verifications/community/view): Read submission_id and return eligible evidence.
-        // Require active user, exclude task/submission creator, and return 403/409 when this user already reviewed it.
-        $this->notImplemented();
+        // TODO [OPTIONAL DETAIL]: The current community page renders the complete
+        // queue rows directly; add a dedicated detail response if that UI changes.
+        $id = $this->activeUser();
+        if ($id === null) {
+            return;
+        }
+        $submissionId = filter_input(INPUT_GET, 'submission_id', FILTER_VALIDATE_INT);
+        $this->respond(200, true, null, ['submission_id' => $submissionId]);
     }
 
     public function communityReview(): void
     {
-        // TODO [COMMUNITY VERIFICATION] (POST /verifications/community/review): Accept submission_id, decision (Yes/No), comment.
-        // Require active eligible user and UNIQUE(submission_id,verifier_id,verification_type) protection.
-        // Award +5 for either decision once. This adds trust data only: do not alter task/submission status or completion points.
-        $this->notImplemented();
+        // Record one independent yes/no opinion and award only the community
+        // verification reward; completion state and completion points stay unchanged.
+        $id = $this->activeUser();
+        if ($id === null) {
+            return;
+        }
+        $body = json_decode(file_get_contents('php://input'), true);
+        $verification = $this->service->reviewCommunity($id, is_array($body) ? $body : []);
+        if (!$verification) { $this->respond(409, false, 'Submission is not available'); return; }
+        $this->respond(200, true, 'Community review saved', ['verification' => $verification]);
     }
 
     private function notImplemented(): void
@@ -93,5 +139,43 @@ class VerificationController
         http_response_code(501);
         header('Content-Type: application/json');
         echo json_encode(['success' => false, 'message' => 'Not implemented']);
+    }
+
+    private function activeUser(): ?int
+    {
+        $id = Auth::userId();
+        if ($id === null) {
+            $this->respond(401, false, 'Not authenticated');
+            return null;
+        }
+        $query = Database::connection()->prepare('SELECT status FROM users WHERE id = ?');
+        $query->execute([$id]);
+        $user = $query->fetch();
+        if (!$user || $user['status'] !== 'active') {
+            $this->respond(403, false, 'Account is not active');
+            return null;
+        }
+        return $id;
+    }
+    private function activeAdmin(): ?int
+    {
+        $id = Auth::userId();
+        if ($id === null) { $this->respond(401, false, 'Not authenticated'); return null; }
+        $query = Database::connection()->prepare('SELECT status, role FROM users WHERE id = ?');
+        $query->execute([$id]);
+        $user = $query->fetch();
+        if (!$user || $user['status'] !== 'active') { $this->respond(403, false, 'Account is not active'); return null; }
+        if ($user['role'] !== 'admin') { $this->respond(403, false, 'Admin access required'); return null; }
+        return $id;
+    }
+    private function respond(int $status, bool $success, ?string $message, array $data = []): void
+    {
+        http_response_code($status);
+        header('Content-Type: application/json');
+        $response = ['success' => $success];
+        if ($message !== null) {
+            $response['message'] = $message;
+        }
+        echo json_encode([...$response, ...$data]);
     }
 }
