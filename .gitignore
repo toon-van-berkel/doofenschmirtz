@@ -1,6 +1,13 @@
 deploy/
 backend/config/database.php
 frontend/js/api/client.js
+frontend/uploads/*
+!frontend/uploads/tasks/
+!frontend/uploads/submissions/
+frontend/uploads/tasks/*
+!frontend/uploads/tasks/.gitkeep
+frontend/uploads/submissions/*
+!frontend/uploads/submissions/.gitkeep
 .env
 .env.*
 !.env.example
