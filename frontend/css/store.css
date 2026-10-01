@@ -1,0 +1,101 @@
+/*
+ * Store feature styling
+ * Original feature author: LieveW
+ * Source branch: feat/store
+ * Integrated into current application by Toon van Berkel
+ */
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0 auto;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    background-color: #EAEAEA;
+    color: black;
+}
+
+.content-container {
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin: 20px;
+}
+
+header strong {
+    font-size: 30px;
+}
+
+header p {
+    margin: 20px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.item-container {
+    background-color: var(--color-background);
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: 5px 3px 5px #b5b9b7;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 8vh;
+    margin-bottom: 0.25vh;
+    flex: 1;
+    background-color: #796AAC;
+    border: 2px solid #796AAC;
+    color: #fbfbfb;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.button:hover {
+    background-color: #fbfbfb;
+    color: #796AAC;
+}
+
+main {
+    position: relative;
+    min-height: 100svh;
+}
+
+.store-lock {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: rgba(45, 45, 45, 0.65);
+    backdrop-filter: blur(1px);
+}
+
+.store-lock__modal {
+    width: min(100%, 420px);
+    padding: 32px 24px;
+    text-align: center;
+    background: var(--color-surface);
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: 0 12px 40px var(--color-brand-primary);
+}
+
+.store-lock__modal h2 {
+    color: var(--color-brand-dark);
+    font-size: 1.5rem;
+}

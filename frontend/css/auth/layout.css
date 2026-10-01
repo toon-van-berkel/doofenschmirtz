@@ -5,7 +5,6 @@ body.auth-page {
         radial-gradient(circle at 100% 0, var(--color-brand-light) 0 18%, transparent 38%),
         radial-gradient(circle at 0 100%, var(--color-brand-light) 0 16%, transparent 36%);
 }
-
 .auth-card {
     width: min(100%, 720px);
     min-height: 100svh;
@@ -15,7 +14,6 @@ body.auth-page {
     overflow: visible;
     background: #fffffff2;
 }
-
 .auth-content h1 {
     margin-top: 10px;
     font-size: clamp(2rem, 8vw, 3rem);
@@ -65,7 +63,6 @@ body.auth-page {
         box-shadow: 0 20px 70px #6552a226;
     }
 }
-
 @media (min-width: 900px) {
     body.auth-page {
         display: flex;
@@ -127,7 +124,6 @@ body.auth-page {
         justify-self: stretch;
     }
 }
-
 @media (max-width: 380px) {
     .auth-card {
         padding-right: 16px;

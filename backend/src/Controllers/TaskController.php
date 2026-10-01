@@ -2,6 +2,12 @@
 
 class TaskController
 {
+    // --- Team implementation: Tasks ---
+    // Backend scaffold/specification: Toon van Berkel
+    // Feature implementation: Liam Plokkaar
+    // Source branch: taskpage
+    // Integration by Toon van Berkel: adapted implementation to current auth, router and schema.
+
     public function __construct()
     {
         $this->service = new TaskService(Database::connection());
@@ -9,45 +15,121 @@ class TaskController
 
     private TaskService $service;
 
-    public function list(): void
+    public function list(): void //liam
     {
-        // TODO [TASK LIST] (GET /tasks): Require an active user; accept optional status/filter and pagination query parameters.
-        // Call TaskService::listOpenTasks(). Return approved/open task summaries, task_images metadata, and availability.
-        // Use 401 for no session, 403 for inactive users, and 200 with an empty list when no tasks match.
-        // This read must not award points or expose private creator fields.
-        $this->notImplemented();
+        // Only authenticated active users can browse tasks that are currently open.
+        // TODO [OPTIONAL]: add filtering and pagination if the list grows.
+        if ($this->activeUserId() === null) {
+            return;
+        }
+
+        $tasks = $this->service->listOpenTasks();
+        $this->respond(200, true, null, ['tasks' => $tasks]);
     }
 
     public function view(): void
     {
-        // TODO [TASK VIEW] (GET /tasks/view): Require an active user and read integer task_id from the query string.
-        // Call TaskService::getTask(). Return the task, public creator summary, and task_images metadata.
-        // Validate visibility; use 400 for invalid input, 401/403 for access failure, and 404 for unknown/inaccessible tasks.
-        $this->notImplemented();
+        // Return only an authenticated user's public view of an open task.
+        if ($this->activeUserId() === null) {
+            return;
+        }
+
+        $taskId = filter_input(INPUT_GET, 'task_id', FILTER_VALIDATE_INT);
+
+        if (!$taskId || $taskId < 1) {
+            $this->respond(400, false, 'Invalid task ID');
+            return;
+        }
+
+        $task = $this->service->getTask($taskId);
+
+        if ($task === null) {
+            $this->respond(404, false, 'Task not found');
+            return;
+        }
+
+        $this->respond(200, true, null, ['task' => $task]);
     }
 
-    public function mine(): void
+    public function mine(): void // Liam
     {
-        // TODO [MY TASKS] (GET /tasks/mine): Require an active user and derive created_by from the session.
-        // Call TaskService::getTasksByUser(). Return that user's tasks with status and moderation information.
-        // Ignore any client-supplied user ID; use 401 for no session and 403 for inactive accounts.
-        $this->notImplemented();
+        // Load the creator's own tasks from the session identity, never from client input.
+        $userId = $this->activeUserId();
+
+        if ($userId === null) {
+            return;
+        }
+
+        $tasks = $this->service->getTasksByUser($userId);
+        $this->respond(200, true, null, ['tasks' => $tasks]);
     }
 
     public function create(): void
     {
-        // TODO [TASK CREATION] (POST /tasks/create): Require an active user and pass JSON title, description,
-        // completion_criteria, optional location_description/latitude/longitude, and future task-image metadata to the service.
-        // Validate required fields and coordinate ranges. The user does not choose the reward: points stays NULL until approval.
-        // New tasks always start pending. Return 201 with the created task, or 400/401/403 on validation/auth failure.
-        // Do not award task_created (+20) here; that occurs once after admin approval.
-        $this->notImplemented();
+        // New tasks start pending; admin approval assigns the reward and makes them open.
+        $userId = $this->activeUserId();
+
+        if ($userId === null) {
+            return;
+        }
+
+        $body = $_POST ?: json_decode(file_get_contents('php://input'), true);
+        $body = is_array($body) ? $body : [];
+        try { $task = $this->service->createTask($userId, $body, $_FILES); }
+        catch (RuntimeException $exception) { $this->respond($exception->getCode() === 400 ? 400 : 500, false, $exception->getMessage()); return; }
+
+        if ($task === null) {
+            $this->respond(400, false, 'Invalid task data');
+            return;
+        }
+
+        $this->respond(201, true, 'Task created', ['task' => $task]);
     }
 
-    private function notImplemented(): void
+    private function activeUserId(): ?int
     {
-        http_response_code(501);
+        $userId = Auth::userId();
+
+        if ($userId === null) {
+            $this->respond(401, false, 'Not authenticated');
+            return null;
+        }
+
+        $statement = Database::connection()->prepare(
+            'SELECT status FROM users WHERE id = ? LIMIT 1'
+        );
+        $statement->execute([$userId]);
+        $user = $statement->fetch();
+
+        if (!$user) {
+            unset($_SESSION['user_id']);
+            $this->respond(401, false, 'Not authenticated');
+            return null;
+        }
+
+        if ($user['status'] !== 'active') {
+            $this->respond(403, false, 'Account is not active');
+            return null;
+        }
+
+        return $userId;
+    }
+
+    private function respond(
+        int $status,
+        bool $success,
+        ?string $message = null,
+        array $data = []
+    ): void {
+        http_response_code($status);
         header('Content-Type: application/json');
-        echo json_encode(['success' => false, 'message' => 'Not implemented']);
+
+        $response = ['success' => $success];
+
+        if ($message !== null) {
+            $response['message'] = $message;
+        }
+
+        echo json_encode([...$response, ...$data]);
     }
 }

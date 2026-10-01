@@ -11,29 +11,60 @@ class SubmissionController
 
     public function view(): void
     {
-        // TODO [SUBMISSION VIEW] (GET /submissions/view): Require an active user and integer submission_id query input.
-        // Call SubmissionService::getSubmission(). Authorize the submitter, task creator, or explicitly eligible reviewer.
-        // Return status, evidence_description, timestamps, submission_images metadata, and permitted history.
-        // Use 400/401/403/404 as appropriate; do not expose unrelated private submissions.
-        $this->notImplemented();
+        // Return evidence only to the submitter or task creator authorized to inspect it.
+        $userId = $this->activeUserId();
+        if ($userId === null) {
+            return;
+        }
+        $id = filter_input(INPUT_GET, 'submission_id', FILTER_VALIDATE_INT);
+        if (!$id) { $this->respond(400, false, 'Invalid submission ID'); return; }
+        $submission = $this->service->getSubmission($id, $userId);
+        if (!$submission) { $this->respond(404, false, 'Submission not found'); return; }
+        $this->respond(200, true, null, ['submission' => $submission]);
     }
 
     public function mine(): void
     {
-        // TODO [MY SUBMISSIONS] (GET /submissions/mine): Require an active user and call getSubmissionsByUser() with session user_id.
-        // Return task summaries, status, timestamps, evidence metadata, and appeal/verification state for that user only.
-        // Use 401/403 for authentication/account-state failures and 200 with an empty list when applicable.
-        $this->notImplemented();
+        // My submissions always use the authenticated session user and never accept
+        // a client-controlled user ID.
+        $userId = $this->activeUserId();
+        if ($userId === null) {
+            return;
+        }
+        $this->respond(200, true, null, ['submissions' => $this->service->getSubmissionsByUser($userId)]);
     }
 
     public function create(): void
     {
-        // TODO [SUBMISSION CREATION] (POST /submissions/create): Require an active user and accept task_id,
-        // evidence_description, and eventually multipart/FormData evidence images.
-        // Reject self-submission, require the task to be open, enforce UNIQUE(task_id,user_id), and require evidence images
-        // in the final implementation. Insert status=submitted; submitting awards 0 points and does not complete the task.
-        // Return 201 with the submission or 400/401/403/409/404 for invalid, unauthorized, duplicate, or missing data.
-        $this->notImplemented();
+        // Evidence can be submitted only for another user's open task. Creation
+        // stores the submission and optional images atomically and awards no points.
+        $userId = $this->activeUserId();
+        if ($userId === null) {
+            return;
+        }
+        $body = $_POST ?: json_decode(file_get_contents('php://input'), true);
+        $body = is_array($body) ? $body : [];
+        $body['_files'] = $_FILES;
+        try { $submission = $this->service->createSubmission($userId, $body); }
+        catch (RuntimeException $exception) { $this->respond($exception->getCode() === 400 ? 400 : 500, false, $exception->getMessage()); return; }
+        if (!$submission) { $this->respond(400, false, 'Invalid, unavailable, or duplicate submission'); return; }
+        $this->respond(201, true, 'Submission created', ['submission' => $submission]);
+    }
+
+    private function activeUserId(): ?int
+    {
+        $id = Auth::userId(); if ($id === null) { $this->respond(401, false, 'Not authenticated'); return null; }
+        $s = Database::connection()->prepare('SELECT status FROM users WHERE id = ?'); $s->execute([$id]); $u = $s->fetch();
+        if (!$u) { $this->respond(401, false, 'Not authenticated'); return null; }
+        if ($u['status'] !== 'active') { $this->respond(403, false, 'Account is not active'); return null; }
+        return $id;
+    }
+
+    private function respond(int $status, bool $success, ?string $message, array $data = []): void
+    {
+        http_response_code($status); header('Content-Type: application/json');
+        $response = ['success' => $success]; if ($message !== null) $response['message'] = $message;
+        echo json_encode([...$response, ...$data]);
     }
 
     private function notImplemented(): void

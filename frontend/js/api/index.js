@@ -4,3 +4,4 @@ export { tasksApi } from './tasks.js';
 export { submissionsApi } from './submissions.js';
 export { verificationsApi } from './verifications.js';
 export { activityApi } from './activity.js';
+export { adminApi } from './admin.js';

@@ -14,7 +14,6 @@ function startModalBurst(target) {
         target.classList.remove('burst-active');
     }, { once: true });
 }
-
 export function openAnimatedModal(target, firstOpen = false) {
     if (!target) {
         return;
@@ -195,7 +194,6 @@ export function showInvalidFieldTooltips(form) {
         }
     });
 }
-
 export function updateSubmitButton(form, valid) {
     form.querySelector('.primary-button').classList.toggle('is-form-invalid', !valid);
 }
@@ -217,7 +215,6 @@ export function updatePasswordRequirements(password, getStates) {
         }
     });
 }
-
 export function initAuthUI() {
     document.querySelectorAll('[data-social]').forEach((button) => {
         button.addEventListener('click', showServiceModal);
@@ -232,19 +229,6 @@ export function initAuthUI() {
             closeAnimatedModal(serverErrorModal);
         });
 
-        serverErrorModal.addEventListener('click', (event) => {
-            if (event.target === serverErrorModal) {
-                closeAnimatedModal(serverErrorModal);
-            }
-        });
-    }
-
-    if (modal) {
-        modal.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                closeAnimatedModal(modal);
-            }
-        });
     }
 
     if (successModal) {
@@ -270,16 +254,6 @@ export function initAuthUI() {
         });
     }
 
-    document.addEventListener('keydown', (event) => {
-        if (event.key !== 'Escape') {
-            return;
-        }
-
-        if (modal && !modal.hidden) closeAnimatedModal(modal);
-        if (serverErrorModal && !serverErrorModal.hidden) closeAnimatedModal(serverErrorModal);
-        if (successModal && !successModal.hidden) closeAnimatedModal(successModal);
-        if (loginSuccessModal && !loginSuccessModal.hidden) closeAnimatedModal(loginSuccessModal);
-    });
 }
 
 export function initPasswordToggles() {

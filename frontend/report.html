@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report a problem | Doofenshmirtz</title>
+    <link rel="shortcut icon" href="./assets/favicon-bg.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/base/common.css">
+    <link rel="stylesheet" href="./css/base/colors.css">
+    <link rel="stylesheet" href="./css/base/font.css">
+    <link rel="stylesheet" href="./css/base/icon.css">
+    <link rel="stylesheet" href="./css/base/brand.css">
+    <link rel="stylesheet" href="./css/components/nav.css">
+    <link rel="stylesheet" href="./css/auth/layout.css">
+    <link rel="stylesheet" href="./css/auth/form.css">
+    <link rel="stylesheet" href="./css/auth/feedback.css">
+    <link rel="stylesheet" href="./css/auth/modals.css">
+    <link rel="stylesheet" href="./css/auth/animations.css">
+</head>
+<body class="auth-page report-page is-loading">
+    <div class="page-loader" role="status" aria-label="Page loading">
+        <img class="page-loader__logo" src="./assets/favicon.svg" alt="">
+    </div>
+
+    <main class="auth-card">
+        <a href="./index.html" class="brand">
+            <img class="brand-icon" src="./assets/favicon.svg" alt="">
+            <span class="brand__title-container">
+                <span class="brand__title-bold">Doofenshmirtz</span>
+                <span class="brand__title-description">Clean control. Clear progress.</span>
+            </span>
+        </a>
+
+        <section class="auth-content">
+            <h1>Report a problem</h1>
+            <p class="auth-intro">Tell us what went wrong and we’ll take a look.</p>
+
+            <form class="auth-form" id="report-form" novalidate>
+                <div class="field-group">
+                    <label for="report-email">Email address</label>
+                    <div class="field-input-wrap">
+                        <p class="field-error" id="report-email-error" role="alert"></p>
+                        <div class="input-container">
+                            <span class="icon icon-mail input-icon" aria-hidden="true"></span>
+                            <input
+                                type="email"
+                                id="report-email"
+                                name="email"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                required
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label for="report-subject">Subject</label>
+                    <div class="field-input-wrap">
+                        <p class="field-error" id="report-subject-error" role="alert"></p>
+                        <div class="input-container">
+                            <select id="report-subject" name="subject" required>
+                                <option value="" disabled selected>Select a subject</option>
+                                <option value="login">Login</option>
+                                <option value="register">Register</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label for="report-message">What happened?</label>
+                    <div class="field-input-wrap">
+                        <p class="field-error" id="report-message-error" role="alert"></p>
+                        <div class="input-container">
+                            <textarea
+                                id="report-message"
+                                name="message"
+                                rows="5"
+                                placeholder="Describe the problem"
+                                required
+                            ></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="primary-button" type="submit">
+                    Send report <span>→</span>
+                </button>
+            </form>
+
+            <p class="auth-footer"><a href="./login.html">Back to login</a></p>
+        </section>
+    </main>
+
+    <div
+        class="service-modal success-modal report-success-modal"
+        id="report-success-modal"
+        hidden
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="report-success-title"
+    >
+        <div class="modal-panel">
+            <div class="error-symbol-area">
+                <span class="error-symbol" aria-hidden="true">
+                    <span class="error-symbol__pulse"></span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--top-left"><span class="error-symbol__ray"></span></span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--top-right"><span class="error-symbol__ray"></span></span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--bottom-left"><span class="error-symbol__ray"></span></span>
+                    <span class="error-symbol__ray-wrap error-symbol__ray-wrap--bottom-right"><span class="error-symbol__ray"></span></span>
+                    <span class="error-symbol__mask"></span>
+                    <span id="report-success-icon" class="icon icon-check error-symbol__icon"></span>
+                </span>
+            </div>
+            <h2 id="report-success-title">Report sent</h2>
+            <p>Thank you for your report. We'll take a look at the problem.</p>
+            <button class="primary-button" type="button" data-report-success-close>
+                Continue
+            </button>
+        </div>
+    </div>
+
+    <nav>
+        <a href="./index.html">
+            <span class="icon icon-home"></span>
+            Home
+        </a>
+        <a href="./tasks.html">
+            <span class="icon icon-tasks"></span>
+            Tasks
+        </a>
+        <a href="./store.html">
+            <span class="icon icon-present"></span>
+            Rewards
+        </a>
+        <a href="./activity.html">
+            <span class="icon icon-activity"></span>
+            Activity
+        </a>
+        <a href="./profile.html">
+            <span class="icon icon-profile-bg"></span>
+            Profile
+        </a>
+    </nav>
+
+    <script type="module" src="./js/components/loader.js"></script>
+    <script type="module" src="./js/components/nav.js"></script>
+    <script type="module" src="./js/pages/report.js"></script>
+</body>
+</html>

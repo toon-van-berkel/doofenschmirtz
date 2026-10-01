@@ -3,7 +3,6 @@
 .server-error-modal[hidden] {
     display: none;
 }
-
 .service-modal,
 .server-error-modal {
     position: fixed;
@@ -13,13 +12,13 @@
     padding: 20px;
     background: rgba(25, 22, 44, 0.52);
 }
-
 .service-modal {
-    z-index: 10;
+    /* Keep the complete auth overlay above the desktop navigation layer. */
+    z-index: 20;
 }
 
 .server-error-modal {
-    z-index: 11;
+    z-index: 21;
 }
 
 .modal-panel,

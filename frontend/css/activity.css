@@ -1,0 +1,219 @@
+/*
+ * Activity feature styling
+ * Original feature author: Efe
+ * Source branch: feat-activity
+ * Integrated into current application by Toon van Berkel
+ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --purple: #7055a8;
+    --purple-light: #f0edfb;
+    --purple-border: #c8bde3;
+    --text: #292844;
+    --muted: #77749a;
+    --background: #f7f8fd;
+    --white: #ffffff;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+    background: radial-gradient(circle at 0% 100%, #e9e5ff 0, transparent 35%),
+    radial-gradient(circle at 100% 0%, #ecebff 0, transparent 35%),
+    var(--background);
+}
+
+/* Header */
+
+header {
+    width: min(1100px, calc(100% - 40px));
+    margin: 45px auto 25px;
+}
+
+header h1 {
+    font-size: 42px;
+    line-height: 1.1;
+    font-weight: 800;
+    color: #111018;
+    letter-spacing: -1.5px;
+}
+
+header p {
+    margin-top: 8px;
+    color: var(--purple);
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* Main card */
+
+main {
+    width: min(1100px, calc(100% - 40px));
+    margin: 0 auto 50px;
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 28px;
+    padding: 30px;
+    box-shadow: 0 18px 50px rgba(74, 58, 120, 0.10);
+}
+
+/* Points */
+
+.points {
+    display: flex;
+    align-items: center;
+    min-height: 82px;
+    padding: 0 24px;
+    margin-bottom: 25px;
+    border-radius: 18px;
+    background: var(--purple-light);
+    border: 1px solid #e2dcf2;
+}
+
+.points p {
+    color: var(--purple);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* Category buttons */
+
+.categories {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    appearance: none;
+    border: 1.5px solid var(--purple-border);
+    background: var(--white);
+    color: var(--purple);
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.filter-btn:hover {
+    background: var(--purple-light);
+    transform: translateY(-1px);
+}
+
+.filter-btn.active {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: white;
+    box-shadow: 0 5px 14px rgba(112, 85, 168, 0.22);
+}
+
+/* Table */
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border: 1px solid #e5e1ef;
+    border-radius: 18px;
+    background: white;
+}
+
+thead th {
+    padding: 18px 20px;
+    text-align: left;
+    background: #f4f1fb;
+    color: var(--purple);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+tbody td {
+    padding: 18px 20px;
+    border-top: 1px solid #eeeaf5;
+    font-size: 16px;
+}
+
+tbody tr {
+    transition: background 0.2s ease;
+}
+
+tbody tr:hover {
+    background: #faf8ff;
+}
+
+tbody td:first-child {
+    width: 80px;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+tbody td:last-child {
+    color: var(--purple);
+    font-weight: 800;
+}
+
+/* Rounded table corners */
+
+thead th:first-child {
+    border-top-left-radius: 18px;
+}
+
+thead th:last-child {
+    border-top-right-radius: 18px;
+}
+
+/* Responsive */
+
+@media (max-width: 700px) {
+    header {
+        margin-top: 25px;
+    }
+
+    header h1 {
+        font-size: 32px;
+    }
+
+    main {
+        width: calc(100% - 24px);
+        padding: 18px;
+        border-radius: 22px;
+    }
+
+    .points {
+        padding: 18px;
+    }
+
+    .points p {
+        font-size: 17px;
+    }
+
+    .categories {
+        gap: 8px;
+    }
+
+    .filter-btn {
+        padding: 10px 16px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    thead th,
+    tbody td {
+        padding: 14px 16px;
+    }
+}

@@ -12,12 +12,10 @@
     -webkit-mask-position: center;
     -webkit-mask-repeat: no-repeat;
 }
-
 .icon-home {
     mask-image: url('../../assets/icons/home.svg');
     -webkit-mask-image: url('../../assets/icons/home.svg');
 }
-
 .icon-home-bg {
     mask-image: url('../../assets/icons/home-bg.svg');
     -webkit-mask-image: url('../../assets/icons/home-bg.svg');
@@ -115,6 +113,11 @@
 .icon-check {
     mask-image: url('../../assets/icons/check.svg');
     -webkit-mask-image: url('../../assets/icons/check.svg');
+}
+
+.icon-time {
+    mask-image: url('../../assets/icons/time.svg');
+    -webkit-mask-image: url('../../assets/icons/time.svg');
 }
 
 .icon-link-break {

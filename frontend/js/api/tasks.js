@@ -1,23 +1,32 @@
 import { api } from './client.js';
 
+// --- Team implementation: Tasks API ---
+// API scaffold/specification: Toon van Berkel
+// Task API implementation/updates: Liam Plokkaar
+// Source branch: taskpage
+// Integration by Toon van Berkel:
+// - retained the shared API client
+// - aligned endpoints with the current development structure
+
 export const tasksApi = {
     list() {
-        // TODO [TASK LIST]: Fetch open tasks from GET /tasks. The backend should return JSON task/status/image metadata,
-        // with filtering and pagination added when the task list UI is implemented.
-        return api.get('/tasks'); 
+        // The backend returns open tasks with their public status and image metadata.
+        // TODO [OPTIONAL]: Add filtering and pagination if the list grows.
+        return api.get('/tasks');
     },
+
     view(taskId) {
-        // TODO [TASK VIEW]: Fetch one task from GET /tasks/view?task_id= and show only data the current user may view.
-        return api.get(`/tasks/view?task_id=${encodeURIComponent(taskId)}`); 
+        // The backend limits task detail to authenticated users and open tasks.
+        return api.get(`/tasks/view?task_id=${encodeURIComponent(taskId)}`);
     },
+
     mine() {
-        // TODO [MY TASKS]: Fetch the authenticated user's created tasks from GET /tasks/mine.
-        return api.get('/tasks/mine'); 
+        // The backend derives the creator from the authenticated session.
+        return api.get('/tasks/mine');
     },
-    create(payload) { 
-        // TODO [TASK CREATION]: Send task fields to POST /tasks/create. The server owns pending status and reward approval.
-        // TODO [TASK UPLOAD]: Replace JSON with multipart/FormData when task images are supported. Files belong under
-        // uploads/tasks/, require server-side MIME/size validation and random filenames, and task_images stores paths/metadata only.
-        return api.post('/tasks/create', payload); 
-    }
+
+    create(payload) {
+        // The server owns pending status and reward approval; FormData also carries task images.
+        return payload instanceof FormData ? api.postForm('/tasks/create', payload) : api.post('/tasks/create', payload);
+}
 };

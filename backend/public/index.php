@@ -131,11 +131,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
  */
 session_set_cookie_params([
     'path' => '/',
-    'secure' =>
-        $appEnvironment === 'production'
-        || (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'),
+    'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
     'httponly' => true,
-    'samesite' => $appEnvironment === 'production' ? 'Lax' : 'None',
+    'samesite' => 'Lax',
 ]);
 
 session_start();

@@ -1,0 +1,36 @@
+<!-- Core flow integration by Toon van Berkel: creator and community review entrypoints. -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reviews</title>
+    <link rel="stylesheet" href="./css/tasks/task.css">
+    <link rel="stylesheet" href="./css/base/icon.css">
+    <link rel="stylesheet" href="./css/base/brand.css">
+    <link rel="stylesheet" href="./css/components/nav.css">
+</head>
+<body class="tasks-page">
+    <a href="./index.html" class="brand">
+        <img class="brand-icon" src="./assets/favicon.svg" alt="">
+        <span class="brand__title-container">
+            <span class="brand__title-bold">Doofenshmirtz</span>
+            <span class="brand__title-description">Clean control. Clear progress.</span>
+        </span>
+    </a>
+    <main class="tasks-main">
+        <h1>Reviews</h1>
+        <section><h2>Creator submissions</h2><div id="creator-queue">Loading...</div></section>
+        <section><h2>Community validation</h2><div id="community-queue">Loading...</div></section>
+    </main>
+    <nav>
+        <a href="./index.html"><span class="icon icon-home"></span>Home</a>
+        <a href="./tasks.html" aria-current="page"><span class="icon icon-tasks current"></span>Tasks</a>
+        <a href="./store.html"><span class="icon icon-present"></span>Rewards</a>
+        <a href="./activity.html"><span class="icon icon-activity"></span>Activity</a>
+        <a href="./profile.html"><span class="icon icon-profile-bg"></span>Profile</a>
+    </nav>
+    <script type="module" src="./js/components/nav.js"></script>
+    <script type="module" src="./js/pages/submissions-review.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!-- Core flow integration by Toon van Berkel: admin moderation and third-party checks. -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin</title>
+    <link rel="stylesheet" href="./css/base/common.css">
+    <link rel="stylesheet" href="./css/base/colors.css">
+    <link rel="stylesheet" href="./css/base/font.css">
+    <link rel="stylesheet" href="./css/base/icon.css">
+    <link rel="stylesheet" href="./css/base/brand.css">
+    <link rel="stylesheet" href="./css/components/nav.css">
+    <link rel="stylesheet" href="./css/tasks/task.css">
+</head>
+<body class="tasks-page">
+    <a href="./index.html" class="brand">
+        <img class="brand-icon" src="./assets/favicon.svg" alt="">
+        <span class="brand__title-container">
+            <span class="brand__title-bold">Doofenshmirtz</span>
+            <span class="brand__title-description">Clean control. Clear progress.</span>
+        </span>
+    </a>
+    <main class="tasks-main">
+        <h1>Admin</h1>
+        <section aria-labelledby="pending-tasks-title">
+            <h2 id="pending-tasks-title">Pending tasks</h2>
+            <div id="admin-list">Loading...</div>
+        </section>
+        <section aria-labelledby="third-party-title">
+            <h2 id="third-party-title">Third-party checks</h2>
+            <div id="appeal-list">Loading...</div>
+        </section>
+    </main>
+    <nav>
+        <a href="./index.html"><span class="icon icon-home"></span>Home</a>
+        <a href="./tasks.html"><span class="icon icon-tasks"></span>Tasks</a>
+        <a href="./store.html"><span class="icon icon-present"></span>Rewards</a>
+        <a href="./activity.html"><span class="icon icon-activity"></span>Activity</a>
+        <a href="./profile.html"><span class="icon icon-profile-bg"></span>Profile</a>
+    </nav>
+    <script type="module" src="./js/components/nav.js"></script>
+    <script type="module" src="./js/pages/admin.js"></script>
+</body>
+</html>

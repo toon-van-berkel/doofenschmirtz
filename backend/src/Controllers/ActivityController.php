@@ -1,5 +1,11 @@
 <?php
 
+// --- Activity backend specification ---
+// Backend scaffold/specification: Toon van Berkel
+// Feature UI: Efe (feat-activity)
+// Backend implementation: not yet implemented
+// Activity returns the authenticated user's transaction history and calculated balance.
+
 class ActivityController
 {
     public function __construct()
@@ -11,11 +17,29 @@ class ActivityController
 
     public function index(): void
     {
-        // TODO [ACTIVITY] (GET /activity): Require an active user and call PointsService::getUserActivity()/getUserBalance()
-        // using the session user ID. Return point_transactions plus SUM(point_transactions.amount), with pagination and stable order.
-        // Use 401/403 for auth/account failures; never expose another user's ledger or maintain a separate mutable balance.
-        http_response_code(501);
+        // The session user ID keeps the ledger private and prevents client-controlled
+        // account lookups. TODO [OPTIONAL]: add pagination and explicit active-status handling.
+        $userId = Auth::userId();
+        if ($userId === null) {
+            $this->respond(401, false, 'Not authenticated');
+            return;
+        }
+
+        $activity = $this->service->getUserActivity($userId);
+        $balance = $this->service->getUserBalance($userId);
+
+        $this->respond(200, true, null, [
+            'activity' => $activity,
+            'balance' => $balance,
+        ]);
+    }
+
+    private function respond(int $status, bool $success, ?string $message, array $data = []): void
+    {
+        http_response_code($status);
         header('Content-Type: application/json');
-        echo json_encode(['success' => false, 'message' => 'Not implemented']);
+        $response = ['success' => $success];
+        if ($message !== null) $response['message'] = $message;
+        echo json_encode([...$response, ...$data]);
     }
 }

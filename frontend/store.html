@@ -1,0 +1,110 @@
+<!--
+    --- Team integration: Store ---
+    Original feature author: LieveW
+    Source branch: feat/store
+    Original store implementation preserved.
+    Integration by Toon van Berkel: connected current auth, API structure and navigation.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Store</title>
+    <link rel="stylesheet" href="css/store.css">
+    <link rel="stylesheet" href="./css/base/common.css">
+    <link rel="stylesheet" href="./css/base/colors.css">
+    <link rel="stylesheet" href="./css/base/font.css">
+    <link rel="stylesheet" href="./css/base/icon.css">
+    <link rel="stylesheet" href="./css/base/brand.css">
+    <link rel="stylesheet" href="./css/components/nav.css">
+</head>
+<body>
+<a href="./index.html" class="brand">
+    <img class="brand-icon" src="./assets/favicon.svg" alt="">
+    <span class="brand__title-container">
+        <span class="brand__title-bold">Doofenshmirtz</span>
+        <span class="brand__title-description">Clean control. Clear progress.</span>
+    </span>
+</a>
+<main>
+    <div class="content-container">
+        <header>
+            <strong class="welcome">Welcome, <span id="username"></span>! Your points balance is currently unavailable.</strong>
+            <p>Welcome to the store! Here you can spend the points you earned through completing tasks on rewards. These
+                rewards will be changed regularly based on demand and availability.</p>
+        </header>
+
+        <section class="item-container">
+            <div class="img-summary">
+                <!-- <img src="#" alt="icon"> -->
+                <div class="summary">
+                    <h2>Maand Vrij OV</h2>
+                    <p>Een maand vrij reizen met het openbaar vervoer! Dit telt voor RET en NS voor het hele land.</p>
+                </div>
+            </div>
+            <strong>100 points || 1 month</strong>
+            <a href="#" class="button">Buy reward</a>
+        </section>
+        <section class="item-container">
+            <div class="img-summary">
+                <!-- <img src="#" alt="icon"> -->
+                <div class="summary">
+                    <h2>Bioscoopbon</h2>
+                    <p>Gezellig samen met iemand naar de bioscoop, haal nu de waardebon t.w.v. 25 euro!</p>
+                </div>
+            </div>
+            <strong>60 points || n.v.t.</strong>
+            <a href="#" class="button">Buy reward</a>
+        </section>
+        <section class="item-container">
+            <div class="img-summary">
+                <!-- <img src="#" alt="icon"> -->
+                <div class="summary">
+                    <h2>Discord Nitro</h2>
+                    <p>profile go brrrrrr emoji go brrrrrrrrrr</p>
+                </div>
+            </div>
+            <strong>30 points || 1 month</strong>
+            <a href="#" class="button">Buy reward</a>
+        </section>
+    </div>
+    <script type="module" src="./js/components/loader.js"></script>
+    <script type="module" src="./js/components/nav.js"></script>
+    <script type="module" src="./js/store.js"></script>
+    <div class="store-lock" role="dialog" aria-modal="true" aria-labelledby="store-lock-title">
+        <div class="store-lock__modal">
+            <h2 id="store-lock-title">Rewards coming soon</h2>
+        </div>
+    </div>
+</main>
+<nav>
+    <a href="./index.html">
+        <span class="icon icon-home"></span>
+        Home
+    </a>
+
+    <a href="./tasks.html">
+        <span class="icon icon-tasks"></span>
+        Tasks
+    </a>
+
+    <a href="./store.html">
+            <span class="icon icon-present-bg current"></span>
+        Rewards
+    </a>
+
+    <a href="./activity.html">
+        <span class="icon icon-activity"></span>
+        Activity
+    </a>
+
+    <a href="./profile.html">
+            <span class="icon icon-profile"></span>
+        Profile
+    </a>
+</nav>
+</body>
+</html>
